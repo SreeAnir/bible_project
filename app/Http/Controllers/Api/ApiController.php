@@ -34,27 +34,27 @@ class ApiController extends Controller
     public function getAllBibledata(){
         $bible = Bibledata::all();
         if(sizeof($bible)>0){
-            return response(['status'=>1,'message'=>'Datas found', 'bibledatas'=>$bible], $this->successStatus);
+            return response(['status'=>1,'message'=>'Data Found', 'bibledatas'=>$bible], $this->successStatus);
         }else{
-            return response(['status'=>0,'message'=>'No datas'], $this->failStatus);
+            return response(['status'=>0,'message'=>'No Data'], $this->failStatus);
         }
     }
 
     public function getAllPrayer(){
         $bible = Prayer::all();
         if(sizeof($bible)>0){
-            return response(['status'=>1,'message'=>'Datas found', 'prayers'=>$bible], $this->successStatus);
+            return response(['status'=>1,'message'=>'Data Found', 'prayers'=>$bible], $this->successStatus);
         }else{
-            return response(['status'=>0,'message'=>'No datas'], $this->failStatus);
+            return response(['status'=>0,'message'=>'No Data'], $this->failStatus);
         }
     }
 
     public function getAllPrayerTypes(){
         $bible = Prayertype::all();
         if(sizeof($bible)>0){
-            return response(['status'=>1,'message'=>'Datas found', 'prayertypes'=>$bible], $this->successStatus);
+            return response(['status'=>1,'message'=>'Data Found', 'prayertypes'=>$bible], $this->successStatus);
         }else{
-            return response(['status'=>0,'message'=>'No datas'], $this->failStatus);
+            return response(['status'=>0,'message'=>'No Data'], $this->failStatus);
         }
     }
 
@@ -71,9 +71,9 @@ class ApiController extends Controller
 
         $CollectionAgent = Prayer::wherePrayer($request->prayertype_id)->get();
         if(sizeof($CollectionAgent)>0){
-            return response(['status'=>1,'message'=>'Datas found', 'prayer'=>$CollectionAgent], $this->successStatus);
+            return response(['status'=>1,'message'=>'Data Found', 'prayer'=>$CollectionAgent], $this->successStatus);
         }else{
-            return response(['status'=>0,'message'=>'No datas'], $this->failStatus);
+            return response(['status'=>0,'message'=>'No Data'], $this->failStatus);
         }
     }
 
@@ -90,9 +90,9 @@ class ApiController extends Controller
 
         $CollectionAgent = Bibledata::where('date', '=', $request->date)->get();
         if(sizeof($CollectionAgent)>0){
-            return response(['status'=>1,'message'=>'Datas found', 'Bibledata'=>$CollectionAgent], $this->successStatus);
+            return response(['status'=>1,'message'=>'Data Found', 'Bibledata'=>$CollectionAgent], $this->successStatus);
         }else{
-            return response(['status'=>0,'message'=>'No datas'], $this->failStatus);
+            return response(['status'=>0,'message'=>'No Data'], $this->failStatus);
         }
     }
 

@@ -29,6 +29,6 @@ class UserController extends Controller
                     ->make(true);
         }
       
-        return view('users');
+        return view('users-');
     }
 }

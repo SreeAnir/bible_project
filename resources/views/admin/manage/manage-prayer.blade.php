@@ -21,17 +21,21 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                     <h3 class="title">Manage category </h3>
+                     <h3 class="title">Manage Prayers </h3>
                     <p >
-                        Here you can Add / Edit / Delete Categories 
+                        Here you can Add / Edit / Delete Prayers 
                     </p> 
 
                     <table class="table table-bordered data-table">
                     <thead>
                     <tr>
                         <th>No</th>
-                        <th>Prayer Type</th>
-                        <th>Status</th>
+                        <th>Prayer</th>
+                        <th>Title</th>
+                        <th>Sub title</th>
+                        <th>text</th>
+                        <th>orderno</th>
+                        <th>status</th>
                         <th width="100px">Action</th>
                     </tr>
                     </thead>
@@ -55,11 +59,14 @@
      var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('admin.category-list') }}",
+        ajax: "{{ route('admin.prayer-list') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'name', name: 'name'},
-            {data: 'status', name: 'status'},
+            {data: 'prayer', name: 'prayer'},
+            {data: 'title', name: 'title'},
+            {data: 'subtitle', name: 'subtitle'},
+            {data: 'text', name: 'text'},
+            {data: 'orderno', name: 'orderno'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

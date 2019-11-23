@@ -81,7 +81,7 @@
                 <li @if(request()->segment(2)=="addVeg")class="active" @endif>
                     <a href="/admin/listVeg">
                         <i class="material-icons">person</i>
-                        <p>Manage Post</p>
+                        <p>Manage Prayer</p>
                     </a>
                 </li>
                 <li @if(request()->segment(2)=="listCust")class="active" @endif>

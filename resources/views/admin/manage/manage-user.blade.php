@@ -21,7 +21,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                     <h3 class="title">Manage category </h3>
+                     <h3 class="title">Manage User </h3>
                     <p >
                         Here you can Add / Edit / Delete Categories 
                     </p> 

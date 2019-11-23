@@ -27,8 +27,13 @@ Route::get('/admin/dashboard', 'Admin\HomeController@dashboard')
     ->middleware('is_admin')    
     ->name('admin');
 Route::get('/admin/manage-category', 'Admin\HomeController@manageCategory')   ; 
+Route::get('admin/category-list', ['uses'=>'Admin\HomeController@categoryList', 'as'=>'admin.category-list']);
 
-Route::get('/admin/manage-user', 'Admin\HomeController@manageUser')   ; 
+Route::get('/admin/manage-prayer', 'Admin\HomeController@managePrayer')   ; 
+Route::get('admin/prayer-list', ['uses'=>'Admin\HomeController@prayerList', 'as'=>'admin.prayer-list']);
 
-Route::get('admin/list-users','Admin\HomeController@ListUser');
+
+
+
+Route::get('admin/manage-users','Admin\HomeController@ListUser');
 Route::get('users', ['uses'=>'UserController@index', 'as'=>'users.index']);
