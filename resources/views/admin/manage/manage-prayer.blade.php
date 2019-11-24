@@ -1,23 +1,6 @@
 
 @extends('layouts.admin.inner')
 @section('content')
-
-
-        <nav class="navbar navbar-transparent navbar-absolute">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
-                </div>
-
-            </div>
-        </nav>
-
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -33,9 +16,9 @@
                         <th>Prayer</th>
                         <th>Title</th>
                         <th>Sub title</th>
-                        <th>text</th>
-                        <th>orderno</th>
-                        <th>status</th>
+                        <th>Text</th>
+                        <th>Orderno</th>
+                        <th>Status</th>
                         <th width="100px">Action</th>
                     </tr>
                     </thead>
@@ -47,12 +30,7 @@
 
             </div>
         </div>
-
-       
-
-
 @stop
-
 @section('js')
 <script type="text/javascript">
   function loadData(){
@@ -67,12 +45,17 @@
             {data: 'subtitle', name: 'subtitle'},
             {data: 'text', name: 'text'},
             {data: 'orderno', name: 'orderno'},
+            {data: 'status', name: 'status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
   }
      
    $( document ).ready(function() {
+        // $.extend( true, $.fn.dataTable.defaults, {
+        //     "searching": false,
+        //     "ordering": false
+        // } );
         setTimeout(function(){
            $(".alertBox").slideUp();
         }, 8000);

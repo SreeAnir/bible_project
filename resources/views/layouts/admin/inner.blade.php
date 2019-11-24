@@ -19,12 +19,15 @@
 
     <!--  Material Dashboard CSS    -->
     <link href="{{asset('material-dashboard/assets/css/material-dashboard.css')}}" rel="stylesheet"/>
+    <link href="{{asset('css/web.css')}}" rel="stylesheet"/>
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="{{asset('material-dashboard/assets/css/demo.css')}}" rel="stylesheet" />
 
     <script src="{{asset('material-dashboard/assets/js/jquery-3.1.0.min.js')}}" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link href="{{asset('css/theme.dataTables.min.css')}}" rel="stylesheet">
+
 
     <!--     Fonts and icons     -->
     <link href="{{asset('material-dashboard/maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -71,26 +74,26 @@
                     </a>
                 </li>
 
-                <li @if(request()->segment(2)=="editFarm")class="active" @endif>
+                <li @if(request()->segment(2)=="manage-category")class="active" @endif>
                     <a href="/admin/manage-category">
                         <i class="material-icons">person</i>
                         <p>Manage Category</p>
                     </a>
                 </li>
                 
-                <li @if(request()->segment(2)=="addVeg")class="active" @endif>
-                    <a href="/admin/listVeg">
+                <li @if(request()->segment(2)=="manage-prayer")class="active" @endif>
+                    <a href="/admin/manage-prayer">
                         <i class="material-icons">person</i>
                         <p>Manage Prayer</p>
                     </a>
                 </li>
-                <li @if(request()->segment(2)=="listCust")class="active" @endif>
-                    <a href="/admin/listCust">
+                <li @if(request()->segment(2)=="manage-dates")class="active" @endif>
+                    <a href="/admin/manage-dates">
                         <i class="material-icons">person</i>
                         <p>Manage Dates</p>
                     </a>
                 </li>
-                <li @if(request()->segment(2)=="listCust")class="active" @endif>
+                <li @if(request()->segment(2)=="manage-users")class="active" @endif>
                                     <a href="/admin/manage-users">
                                         <i class="material-icons">person</i>
                                         <p>Manage Users</p>
@@ -124,7 +127,7 @@
                 </div>
             @endif
         </div>
-
+ 
         @yield('content')
     </div>
 <!-- <footer class="footer">
@@ -235,6 +238,13 @@
         setTimeout(function(){
            $(".alertBox").slideUp();
         }, 8000);
+
+     $.extend( true, $.fn.dataTable.defaults, {
+            "searching": false,
+            "ordering": false,
+             "scrollY": "300px",
+             "scrollCollapse": true,
+            } );   
     });
 </script>
 

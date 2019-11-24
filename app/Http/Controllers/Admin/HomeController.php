@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
      
 use App\User;
@@ -46,7 +47,29 @@ class HomeController extends Controller
      public function manageCategory(){   
         return view('admin.manage.manage-category');
    }
+   public function saveCategory(Request $request){
+      $rules = [
+            'id'    => 'sometimes|nullable|exists:prayertype,id',
+            'name' => ['required', 'string', 'max:255'],
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+             echo json_encode(['status'=>0,'message'=>$validator->errors()->first()]);
+        }else{
+            if ($request->has('id')) {
+            $PrayerType = Prayertype::whereId($request->id)->first();
+            } else{
+            $PrayerType =new Prayertype;
+            }
+            $PrayerType->name=$request->name;
+            $save=$PrayerType->save();
+            if( $save){
+                 echo json_encode(['status'=> 1,'message'=>"Saved Prayer Type"]); 
+            }
 
+        }
+         
+   }
     public function categoryList(Request $request,$condition=array())
     {  
         if ($request->ajax()) {

@@ -14,6 +14,7 @@
 Route::get('/', 'Admin\LoginController@index');
 
 Auth::routes();
+Route::post('admin/save-category', 'Admin\HomeController@saveCategory')->name('save-category'); ;
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -28,6 +29,7 @@ Route::get('/admin/dashboard', 'Admin\HomeController@dashboard')
     ->name('admin');
 Route::get('/admin/manage-category', 'Admin\HomeController@manageCategory')   ; 
 Route::get('admin/category-list', ['uses'=>'Admin\HomeController@categoryList', 'as'=>'admin.category-list']);
+
 
 Route::get('/admin/manage-prayer', 'Admin\HomeController@managePrayer')   ; 
 Route::get('admin/prayer-list', ['uses'=>'Admin\HomeController@prayerList', 'as'=>'admin.prayer-list']);

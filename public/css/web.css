@@ -36,3 +36,15 @@
  .dataTables_filter{
   float:right;
  }
+ .card{
+  margin-top: 5px;
+ }
+ .form-group {
+    padding-bottom: 0px;
+    margin: 10px 0 0 0;
+}
+ .main-panel > .content {
+    margin-top: 5px;
+    padding: 0px 5px;
+    min-height: calc(100% - 2%);
+}
