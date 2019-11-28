@@ -76,7 +76,7 @@
                  }else{
                     
                     $('form .alert-success').html(data.message).fadeIn();
-                     $('#name').val('');
+                     document.getElementById("formcategory").reset();
                      ///loadData();
                  }
                }

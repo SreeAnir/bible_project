@@ -33,6 +33,7 @@ Route::get('admin/category-list', ['uses'=>'Admin\HomeController@categoryList', 
 
 Route::get('/admin/manage-prayer', 'Admin\HomeController@managePrayer')   ; 
 Route::get('admin/prayer-list', ['uses'=>'Admin\HomeController@prayerList', 'as'=>'admin.prayer-list']);
+Route::post('admin/save-prayer', 'Admin\HomeController@savePrayer')->name('save-prayer'); ;
 
 
 

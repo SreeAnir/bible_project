@@ -5,7 +5,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Category Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="name" class="form-control @error('email') is-invalid @enderror" name="name"  required autocomplete  autofocus>
+                                <input id="name" type="name" class="form-control @error('name') is-invalid @enderror" name="name"  required autocomplete  autofocus>
 
                            <div class="alert alert-warning" role="alert">
                           Enter Category Title
