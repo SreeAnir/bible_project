@@ -13,6 +13,7 @@ use App\Prayer;
 use DataTables;
 use Carbon\Carbon;
 use File;
+use App\Bibledata;
 
 
 class HomeController extends Controller
@@ -101,6 +102,7 @@ class HomeController extends Controller
       }
        
  }
+
    public function saveCategory(Request $request){
       $rules = [
             'id'    => 'sometimes|nullable|exists:prayertype,id',
@@ -151,6 +153,76 @@ class HomeController extends Controller
       
         return view('admin.manage.no-data'); 
     }
+    public function manageDate(){
+        $data=array(); 
+        $prayer_type = PrayerType::latest()->where('status' ,'1')->get();
+        $data['prayer_type'] = $prayer_type ; 
+        return view('admin.manage.manage-date',['prayer_type' => $prayer_type]);
+    }
+    public function loadBibleDateContent(Request $request){
+        $data=array(); 
+        $date=$request->date;
+        $bibleData = Bibledata::where('date' ,$date)->first();
+        $data['bibleData'] = $bibleData ; 
+        $view=view('admin.manage.load-date-content',['bibleData' => $bibleData]);
+        $view=$view->render();
+        echo json_encode(['status'=> 1,'message'=>$view]); 
+    }
+     public function saveBibleDateContent(Request $request){
+      
+      $rules = [
+            'dataId'    => 'sometimes|nullable',
+            'ribbonColor' => ['required', 'string', 'max:255'],
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()){
+             echo json_encode(['status'=>0,'message'=>$validator->errors()->first()]);
+        }else{
+            if ($request->has('date')) {
+            $Bibledata = Bibledata::where('date',$request->date)->first();
+            $message="Data Updated";
+            } 
+            if($Bibledata==""){
+             $Bibledata =new Bibledata;
+             $message="New Data Added"; 
+            }
+            
+
+            $Bibledata->ribbonColor = $request->ribbonColor;  
+            $Bibledata->date = $request->date;  
+            $Bibledata->weekDescription = $request->weekDescription;
+            $Bibledata->psalter = $request->psalter;
+            $Bibledata->saintOfTheDay = $request->saintOfTheDay;
+            $Bibledata->saintOfTheDay = $request->saintOfTheDay;
+            $Bibledata->significanceOfTheDay = $request->significanceOfTheDay;
+            $Bibledata->firstReadingReference = $request->firstReadingReference;
+            $Bibledata->firstReadingTitle = $request->firstReadingTitle;
+            $Bibledata->firstReadingText = $request->firstReadingText;
+            $Bibledata->psalmReference = $request->psalmReference;
+            $Bibledata->psalmText = $request->psalmText;
+            $Bibledata->psalmResponse = $request->psalmResponse;
+            $Bibledata->secondReadingReference = $request->secondReadingReference;
+            $Bibledata->secondReadingTitle = $request->secondReadingReference;
+            $Bibledata->secondReadingText = $request->secondReadingText;
+            $Bibledata->gospelReference = $request->gospelReference ;
+            $Bibledata->gospelTitle = $request->gospelTitle;
+            $Bibledata->gospelText = $request->gospelText;
+            $Bibledata->reflectionText = $request->reflectionText;
+            $Bibledata->readText = $request->readText;
+            $Bibledata->reflectText = $request->reflectText;
+            $Bibledata->prayText = $request->prayText;
+            $Bibledata->actText = $request->actText;
+            $save=$Bibledata->save();
+
+            if( $save){
+                 echo json_encode(['status'=> 1,'message'=>"Saved Content for ". $Bibledata->date ]); 
+            }else{
+              echo json_encode(['status'=> 0,'message'=>"Failed to save Data."]);
+            }
+
+        }
+         
+   }
     
     public function managePrayer(){   
         $data=array(); 

@@ -33,10 +33,18 @@ Route::get('admin/category-list', ['uses'=>'Admin\HomeController@categoryList', 
 
 Route::get('/admin/manage-prayer', 'Admin\HomeController@managePrayer')   ; 
 Route::get('admin/prayer-list', ['uses'=>'Admin\HomeController@prayerList', 'as'=>'admin.prayer-list']);
-Route::post('admin/save-prayer', 'Admin\HomeController@savePrayer')->name('save-prayer'); ;
+Route::post('admin/save-prayer', 'Admin\HomeController@savePrayer')->name('save-prayer'); 
 
 
 
 
 Route::get('admin/manage-users','Admin\HomeController@ListUser');
 Route::get('users', ['uses'=>'UserController@index', 'as'=>'users.index']);
+
+
+Route::get('/admin/manage-dates', 'Admin\HomeController@manageDate')   ; 
+Route::post('admin/load-date-content', 'Admin\HomeController@loadBibleDateContent')->name('load-date-content'); 
+Route::post('admin/save-bible-date', 'Admin\HomeController@saveBibleDateContent')->name('save-bible-date'); 
+
+
+

@@ -28,6 +28,7 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <link href="{{asset('css/theme.dataTables.min.css')}}" rel="stylesheet">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
 
     <!--     Fonts and icons     -->
     <link href="{{asset('material-dashboard/maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css')}}" rel="stylesheet">

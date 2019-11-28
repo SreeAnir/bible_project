@@ -59,30 +59,16 @@
         $( "#submitbtn" ).on( 'click',function( event ) {
          $('.alert').hide().html('');
          event.preventDefault();
-        if ( $( "#name" ).val() == "" ) {
-         $('form .alert-warning').html("Category Type is required").fadeIn();
-            return false;
-        }
-          var form = $('#formPrayer')[0]; // You need to use standard javascript object here
+         
+        var form = $('#formPrayer')[0]; // You need to use standard javascript object here
         var formData = new FormData(form);
 
           $.ajax({
-               type:'POST',
                url:"save-prayer",
                data: formData,
                 type: 'POST',
                 contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
                 processData: false, // NEEDED, DON'T OMIT THIS
-
-               // data: {
-               //  "_token": "{{ csrf_token() }}",
-               //  "prayer": $('#prayer').val() ,
-               //  "title": $('#title').val() ,
-               //  "subtitle": $('#subtitle').val() ,
-               //  "text": $('#text').val() ,
-               //  "orderno": $('#orderno').val() ,
-               //  "prayer_audio" : file_data,
-               //  },
                success:function(data) {
                  data=(JSON.parse(data));
                  if(!data.status){
