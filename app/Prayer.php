@@ -8,6 +8,7 @@ class Prayer extends Model
 {
 
     protected $table = 'prayers';
+    protected $primaryKey = 'idprayers';
     protected $fillable = [
         'idprayers',
         'prayer',

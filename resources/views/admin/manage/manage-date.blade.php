@@ -74,10 +74,13 @@
         $('.validation-div').fadeIn();
         retBool=0;  
         $(this).addClass("error-class");
+        $('#date-chosen').focus();
       }
-
     });
      return retBool;
+  }
+  function clearForm(){
+   $("#formBibleData input,#formBibleData textarea").val("");
   }
   function updateFormData(){
      $('.validation-div').hide();

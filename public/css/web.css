@@ -49,11 +49,11 @@
     min-height: calc(100% - 2%);
 }
   .error-class{
-  background-color: #ffa5a517 !important;
+  background-color: #e03e3e17 !important;
   }
-.loader-class{
+.loader-class,.alert-danger,.alert-success{
 	display: none;
 }
-.validation-div{
+.validation-div,#audio-preview{
   display: none;
 }

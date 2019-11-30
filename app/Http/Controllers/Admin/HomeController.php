@@ -67,8 +67,8 @@ class HomeController extends Controller
       if($validator->fails()){
            echo json_encode(['status'=>0,'message'=>$validator->errors()->first()]);
       }else{
-          if ($request->has('id')) {
-          $Prayer = Prayer::whereId($request->id)->first();
+          if ($request->has('idprayers')) {
+          $Prayer = Prayer::whereId($request->idprayers)->first();
           } else{
           $Prayer =new Prayer;
           }
@@ -89,8 +89,10 @@ class HomeController extends Controller
             // $path=$file->storeAs('public/upload/files/audio/',$filename);die();
              $file->move($destinationPath,$filename);
             // $all_audios=$filename;\
-             if(file_exists($destinationPath.$filename))
-            $Prayer->prayer_audio=$request->filename;
+             if(file_exists($destinationPath.$filename)){
+               $Prayer->prayer_audio=$filename;
+             }
+            
            }
           $save=$Prayer->save();
           if( $save){

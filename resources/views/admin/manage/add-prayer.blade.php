@@ -1,6 +1,8 @@
 <div class="card">
                 <div class="card-body">
-               
+               <div class="alert alert-danger validation-div" role="alert">
+            Please enter all fields
+            </div>
                     <form  id="formPrayer" method="POST" action="{{ route('save-category') }}">
                         @csrf
                     <div class="alert alert-success" role="alert">
@@ -47,20 +49,29 @@
                         </div>
                         <div class="form-group row form-file-upload form-file-multiple">
                         <label for="orderno" class="col-md-4 col-form-label text-md-right">{{ __('Audio') }}</label>
-                            <input  id="prayer_audio"  name="prayer_audio"  type="file" multiple="" class="inputFileHidden">
+                            <input accept="audio/mp3,audio/*;capture=microphone" required id="prayer_audio"  name="prayer_audio"  type="file" multiple="" class="inputFileHidden">
                             <div class="input-group col-md-6">
-                                <input type="text" class="form-control inputFileVisible" placeholder="Single File">
+                                <input id="prayer_audio_invisible"  type="text" class="form-control inputFileVisible" placeholder="Single File">
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-fab btn-round btn-primary">
                                         <i class="material-icons">attach_file</i>
                                     </button>
                                 </span>
                             </div>
+
+                        </div>
+
+                        <div class="form-group row" id="audio-preview">
+                        <label for="orderno" class="col-md-4 col-form-label text-md-right"></label>
+                        <div class="col-md-4">
+                          <audio id="sound" controls></audio>
+                        </div>
+                        <div class="col-md-2">
+                          <a class="material-icons clear-audio">delete</a>
+                        </div>
+                       
                         </div>
                          
-
-                         
-
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button id="submitbtn" type="submit" class="btn btn-primary">

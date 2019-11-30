@@ -62,9 +62,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">First Reading Reference</label>
         <div class="col-md-6">
-            <textarea id="firstReadingReference"  class="form-control required" name="firstReadingReference" required="" autocomplete="" >
-            {{@$bibleData->firstReadingReference}}
-            </textarea>
+            <textarea id="firstReadingReference"  class="form-control required" name="firstReadingReference" required="" autocomplete="" >{{@$bibleData->firstReadingReference}}</textarea>
         </div>
      <span class="material-input"></span>
     </div>
@@ -78,8 +76,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">First Reading Text</label>
         <div class="col-md-6">
-            <textarea  id="firstReadingText"  class="form-control required" name="firstReadingText" required="" autocomplete="" autofocus="">
-               {{@$bibleData->firstReadingText}}
+            <textarea  id="firstReadingText"  class="form-control required" name="firstReadingText" required="" autocomplete="" autofocus="">{{@$bibleData->firstReadingText}}
             </textarea>
         </div>
      <span class="material-input"></span>
@@ -94,8 +91,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Psalm Text</label>
         <div class="col-md-6">
-            <textarea id="psalmText" type="text" class="form-control required" name="psalmText" required="" autocomplete="" autofocus="">
-                {{@$bibleData->psalmText}}
+            <textarea id="psalmText" type="text" class="form-control required" name="psalmText" required="" autocomplete="" autofocus="">{{@$bibleData->psalmText}}
             </textarea>
         </div>
      <span class="material-input"></span>
@@ -124,9 +120,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Second Reading Text</label>
         <div class="col-md-6">
-            <textarea id="secondReadingText" type="text" class="form-control required" name="secondReadingText" required="" autocomplete="" autofocus="">
-                 {{@$bibleData->secondReadingText}}
-            </textarea>
+            <textarea id="secondReadingText" type="text" class="form-control required" name="secondReadingText" required="" autocomplete="" autofocus="">{{@$bibleData->secondReadingText}}</textarea>
         </div>
      <span class="material-input"></span>
     </div>
@@ -147,8 +141,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Gospel Text</label>
         <div class="col-md-6">
-            <textarea id="gospelText" class="form-control required" name="gospelText" required="" autocomplete="" autofocus="">
-                {{@$bibleData->gospelText}}
+            <textarea id="gospelText" class="form-control required" name="gospelText" required="" autocomplete="" autofocus="">{{@$bibleData->gospelText}}
             </textarea>
         </div>
      <span class="material-input"></span>
@@ -156,8 +149,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Reflection Text</label>
         <div class="col-md-6">
-            <textarea id="reflectionText"  class="form-control required" name="reflectionText" required="" autocomplete="" autofocus="">
-            {{@$bibleData->reflectionText}}
+            <textarea id="reflectionText"  class="form-control required" name="reflectionText" required="" autocomplete="" autofocus="">{{@$bibleData->reflectionText}}
             </textarea>
         </div>
      <span class="material-input"></span>
@@ -165,8 +157,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Read Text</label>
         <div class="col-md-6">
-            <textarea id="readText" class="form-control required" name="readText" required="" autocomplete="" autofocus="">
-            {{@$bibleData->readText}}
+            <textarea id="readText" class="form-control required" name="readText" required="" autocomplete="" autofocus="">{{@$bibleData->readText}}
             </textarea>
         </div>
      <span class="material-input"></span>
@@ -174,8 +165,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Reflect Text</label>
         <div class="col-md-6">
-            <textarea id="reflectText"  class="form-control required" name="reflectText" required="" autocomplete="" autofocus="">
-            {{@$bibleData->reflectText}}
+            <textarea id="reflectText"  class="form-control required" name="reflectText" required="" autocomplete="" autofocus="">{{@$bibleData->reflectText}}
             </textarea>
         </div>
      <span class="material-input"></span>
@@ -183,8 +173,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Pray Text</label>
         <div class="col-md-6">
-            <textarea id="prayText"  class="form-control required" name="prayText" required="" autocomplete="" autofocus="">
-           {{@$bibleData->prayText}}
+            <textarea id="prayText"  class="form-control required" name="prayText" required="" autocomplete="" autofocus="">{{@$bibleData->prayText}}
             </textarea>
         </div>
      <span class="material-input"></span>
@@ -192,8 +181,7 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Act Text</label>
         <div class="col-md-6">
-            <textarea id="actText"  class="form-control required" name="actText" required="" autocomplete="" autofocus="">
-             {{@$bibleData->actText}}
+            <textarea id="actText"  class="form-control required" name="actText" required="" autocomplete="" autofocus="">{{@$bibleData->actText}}
             </textarea> 
         </div>
      <span class="material-input"></span>
@@ -203,7 +191,7 @@
             <button id="submitbtn" type="button" onclick="updateFormData();" class="btn btn-primary save-data">
                 {{ __('Save') }}
             </button>
-            <button type="reset" class="btn btn-primary">
+            <button onclick="clearForm();" type="reset" class="btn btn-primary">
                 {{ __('Reset') }}
             </button>
              

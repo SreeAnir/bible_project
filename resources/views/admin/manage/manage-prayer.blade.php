@@ -15,6 +15,7 @@
                         <th>Sub title</th>
                         <th>Text</th>
                         <th>Orderno</th>
+                        <th>Audio</th>
                         <th>Status</th>
                         <th width="100px">Action</th>
                     </tr>
@@ -42,6 +43,7 @@
             {data: 'subtitle', name: 'subtitle'},
             {data: 'text', name: 'text'},
             {data: 'orderno', name: 'orderno'},
+            {data: 'prayer_audio', name: 'prayer_audio'},
             {data: 'status', name: 'status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
@@ -50,16 +52,46 @@
      
   $( document ).ready(function() {
      $('.alert').hide();
+      prayer_audio.onchange = function(e){
+          var sound = document.getElementById('sound');
+          sound.src = URL.createObjectURL(this.files[0]);
+          // not really needed in this exact case, but since it is really important in other cases,
+          // don't forget to revoke the blobURI when you don't need it
+          $('#prayer_audio_invisible').val(this.files[0].name);
+          $('#audio-preview').show();
+          sound.onend = function(e) {
+            URL.revokeObjectURL(this.src);
+          }
+        }
         setTimeout(function(){
            $(".alertBox").slideUp();
         }, 8000);
         loadData();
 
-
-        $( "#submitbtn" ).on( 'click',function( event ) {
-         $('.alert').hide().html('');
+        //delete audio
+        $('.clear-audio').on( 'click',function( event ) {
+            $('#audio-preview').hide();
+            $('#prayer_audio').val('');
+            $('#prayer_audio_invisible').val('');
+        });
+    function validateForm(){
+    var retBool=1;
+     $("#formPrayer input:text[required]").each(function() {
+      (this.value) = (this.value).trim() ;
+      // dataArray.push(data);
+      if((this.value).trim() ==""){
+        $('.validation-div').fadeIn();
+        retBool=0;  
+        $(this).addClass("error-class");
+        $('#prayer').focus();
+      }
+    });
+     return retBool;
+  }
+    $( "#submitbtn" ).on( 'click',function( event ) {
+     $('.alert').hide();
          event.preventDefault();
-         
+         if(validateForm()){
         var form = $('#formPrayer')[0]; // You need to use standard javascript object here
         var formData = new FormData(form);
 
@@ -81,7 +113,9 @@
                  }
                }
             });
-        });       
+            }
+        }); 
+
     });
 </script>
 @stop
