@@ -1,6 +1,7 @@
 
 @extends('layouts.admin.inner')
 @section('content')
+
         <div class="content"> 
             <div class="container-fluid">
                 <div class="row">
@@ -11,12 +12,14 @@
                       <label class="label-control">Datetime </label>
                       <input value='{{ date("Y-m-d") }}' id="date-chosen" type="text" class="form-control datetimepicker" />
                       </div>
+
                        <div class="form-group col-md-2">
+                        <a style="display: none;" class="material-icons loader-class">autorenew</a>
                        <a  class="edit-data material-icons">edit</a> 
                        <a style="display: none;" class="save-data material-icons">save</a> 
                       </div>
-
                       <div id="bible-date-content" class="card-body col-md-12"> 
+
                       <!-- content comes here -->
                       <p> No Data for this date.</p>
                     </div>
@@ -32,7 +35,7 @@
   $('#edit-form input').prop('readonly', true);  
   $('.save-data').hide();
   $('.edit-data').fadeIn();
-  
+  $('.loader-class').show();
   var datechosen=$('#date-chosen').val();
   if(datechosen==''){
     $('#date-chosen').val();
@@ -55,57 +58,73 @@
                   $('#bible-date-content').html(data.message);
                      ///loadData();
                  }
+                  $('.loader-class').hide();
                   $('#edit-form input').prop('readonly', true);
-
                }
             });
 
   }
+  function validateForm(){
+    var retBool=1;
+     $("#formBibleData").find('.required').each(function() {
+      var data = {};
+      (this.value) = (this.value).trim() ;
+      // dataArray.push(data);
+      if((this.value).trim() ==""){
+        $('.validation-div').fadeIn();
+        retBool=0;  
+        $(this).addClass("error-class");
+      }
+
+    });
+     return retBool;
+  }
   function updateFormData(){
+     $('.validation-div').hide();
     if($('#date').val()==""){
       $('#date').val( $('#date-chosen').val());
     }
-    var form = $('#formBibleData')[0]; // You need to use standard javascript object here
-        var formData = new FormData(form);
-        // formData.append('_token', "{{ csrf_token() }}");
+    if(validateForm()){ 
+    
+   // var dataArray = []
+   //  $("#formBibleData").find('input').each(function() {
+   //    var data = {};
+   //    data[this.name] = this.value
+   //    dataArray.push(data);
+   //    console.log("this.name",this.name);
+   //  });
+      // dataArray.push({"_token" : "{{ csrf_token() }}" }); 
+      // console.log("dataArray",dataArray);
+         var formDa= $('#formBibleData');
+         var data_send=formDa.serialize();
+          $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                  }
+              });
+           $('.error-class').removeClass("error-class");
         $.ajax({
-               type:'POST',
-              url:"save-bible-date",
-               data: formData,
+                type:'POST',
+                url:"save-bible-date",
+                data: data_send,
                 type: 'POST',
-                contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
-                processData: false, // NEEDED, DON'T OMIT THIS
-               success:function(data) {
+                success:function(data) {
                  data=(JSON.parse(data));
                  if(!data.status){
-                  $('.show-message').fadeOut(3000);
+                  $('.show-message').fadeOut(2000);
                    $('#bible-date-content').prepend('<div class="show-message alert alert-danger">'+data.message+'</div>');
                  }else{
-                 $('.show-message').fadeOut(4000);
+                 $('.show-message').fadeOut(2000);
                    $('#bible-date-content').prepend('<div class="show-message alert alert-success">'+data.message+'</div>');
                      ///loadData();
                  }
+                    $('#ribbonColor').focus();
+
                   $('#edit-form input').prop('readonly', true);
 
                }
             });
-          // $.ajax({
-          //      url:"save-bible-date",
-          //      data: formData,
-          //      type: 'POST',
-          //      success:function(data) {
-          //        data=(JSON.parse(data));
-          //        if(!data.status){
-          //           $('form .alert-warning').html(data.message).fadeIn();
-          //        }else{
-          //            $('.edit-data').fadeIn(); 
-          //            $('.save-data').hide(); 
-          //           $('form .alert-success').html(data.message).fadeIn();
-          //            document.getElementById("formPrayer").reset();
-          //            ///loadData();
-          //        }
-          //      }
-          //   });
+        }
   }
   $( document ).ready(function() {
 
@@ -121,7 +140,8 @@
     //eof eit btn click
 
     //save btn click
-    $('.save-data').on('click',function(){
+    $('.save-data').bind('click',function(){
+      console.log("Updaed Called");
       updateFormData();
     });
 

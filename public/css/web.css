@@ -48,3 +48,12 @@
     padding: 0px 5px;
     min-height: calc(100% - 2%);
 }
+  .error-class{
+  background-color: #ffa5a517 !important;
+  }
+.loader-class{
+	display: none;
+}
+.validation-div{
+  display: none;
+}

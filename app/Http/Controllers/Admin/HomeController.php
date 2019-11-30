@@ -182,11 +182,16 @@ class HomeController extends Controller
             $Bibledata = Bibledata::where('date',$request->date)->first();
             $message="Data Updated";
             } 
+            if ($request->has('dataId')) {
+            $Bibledata = Bibledata::where('dataId',$request->dataId)->first();
+            $message="Data Updated";
+            } 
             if($Bibledata==""){
              $Bibledata =new Bibledata;
              $message="New Data Added"; 
             }
             
+            $Bibledata->dataId=$request->dataId;
 
             $Bibledata->ribbonColor = $request->ribbonColor;  
             $Bibledata->date = $request->date;  

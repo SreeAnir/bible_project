@@ -8,6 +8,7 @@ class Bibledata extends Model
 {
 
     protected $table = 'bibledata';
+    protected $primaryKey = 'dataId';
     protected $fillable = [
         'dataId',
         'date',
