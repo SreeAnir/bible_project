@@ -31,10 +31,10 @@ Route::get('/admin/manage-category', 'Admin\HomeController@manageCategory')   ;
 Route::get('admin/category-list', ['uses'=>'Admin\HomeController@categoryList', 'as'=>'admin.category-list']);
 
 
-Route::get('/admin/manage-prayer', 'Admin\HomeController@managePrayer')   ; 
-Route::get('admin/prayer-list', ['uses'=>'Admin\HomeController@prayerList', 'as'=>'admin.prayer-list']);
-Route::post('admin/save-prayer', 'Admin\HomeController@savePrayer')->name('save-prayer'); 
-
+Route::get('/admin/manage-prayer', 'Admin\PrayerController@managePrayer')   ; 
+Route::get('admin/prayer-list', ['uses'=>'Admin\PrayerController@prayerList', 'as'=>'admin.prayer-list']);
+Route::post('admin/save-prayer', 'Admin\PrayerController@savePrayer')->name('save-prayer'); 
+Route::get('admin/prayer-details/{idprayers}', 'Admin\PrayerController@prayerDetails')->name('prayer-details'); 
 
 
 
