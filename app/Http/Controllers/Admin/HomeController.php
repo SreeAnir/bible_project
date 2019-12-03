@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use File;
 use DB;
 use App\Bibledata;
+use Session;
 
 
 class HomeController extends Controller
@@ -92,11 +93,10 @@ class HomeController extends Controller
             if(!empty($data)){
                 return Datatables::of($data)
                     ->addIndexColumn()
-                    ->addColumn('action', function($row){
-   
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-     
-                            return $btn;
+                     ->addColumn('action', function($row){
+                         $btn =  '<a href="/admin/category-details/'. $row->id .'" > <i alt="View/Edit"   class="material-icons">edit</i></a>';
+                         $btn .='<a href="/admin/category-delete/'. $row->id .'" data-attr='. $row->id .' href1="/admin/category-delete/'. $row->id .'" > <i class="material-icons">delete</i></a>'; 
+                        return $btn;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
@@ -105,6 +105,33 @@ class HomeController extends Controller
         }
       
         return view('admin.manage.no-data'); 
+    }
+    public function categoryDetails($id=""){
+        $data=array(); 
+        Session::flash('flash_message', 'Invalid Prayer Type');
+        if ($id!='') {
+        $prayer_type = PrayerType::where('id',$id)->first();
+        $data['prayer_type'] = $prayer_type ; 
+        $data['form_edit'] =1 ;
+         Session::flash('flash_message', '');
+        return view('admin.manage.view-prayer-type',$data);
+      }else{
+       return back();
+      }
+      //  return view('admin.manage.manage-prayer',['details' => $prayer]);
+    }
+    public function categoryDelete($id=""){
+        $data=array(); 
+         Session::flash('flash_message', ' Sorry!  Failed to Delete');
+        if ($id!='') {
+          $PrayerType = PrayerType::where('id',$id)->first();
+          $PrayerType->status='2';
+          $save=$PrayerType->save();
+          if($save){
+            Session::flash('flash_message', 'Deleted Successfully');
+          }  
+          } 
+          return back();
     }
     public function manageDate(){
         $data=array(); 

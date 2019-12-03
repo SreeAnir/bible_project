@@ -29,14 +29,17 @@ Route::get('/admin/dashboard', 'Admin\HomeController@dashboard')
     ->name('admin');
 Route::get('/admin/manage-category', 'Admin\HomeController@manageCategory')   ; 
 Route::get('admin/category-list', ['uses'=>'Admin\HomeController@categoryList', 'as'=>'admin.category-list']);
+Route::get('admin/category-details/{id}', ['uses'=>'Admin\HomeController@categoryDetails', 'as'=>'admin.category-details']);
+Route::get('admin/category-delete/{id}', ['uses'=>'Admin\HomeController@categoryDelete', 'as'=>'admin.category-delete']);
+
+
 
 
 Route::get('/admin/manage-prayer', 'Admin\PrayerController@managePrayer')   ; 
 Route::get('admin/prayer-list', ['uses'=>'Admin\PrayerController@prayerList', 'as'=>'admin.prayer-list']);
 Route::post('admin/save-prayer', 'Admin\PrayerController@savePrayer')->name('save-prayer'); 
-Route::get('admin/prayer-details/{idprayers}', 'Admin\PrayerController@prayerDetails')->name('prayer-details'); 
-
-
+Route::get('admin/prayer-details/{idprayers}', 'Admin\PrayerController@prayerDetails')->name('prayer-details');
+Route::get('admin/prayer-delete/{idprayers}', 'Admin\PrayerController@prayerDelete')->name('prayer-delete'); 
 
 Route::get('admin/manage-users','Admin\HomeController@ListUser');
 Route::get('users', ['uses'=>'UserController@index', 'as'=>'users.index']);

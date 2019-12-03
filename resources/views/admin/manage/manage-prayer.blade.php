@@ -5,6 +5,12 @@
             <div class="container-fluid">
                 <div class="row">
                      <h3 class="title">Manage Prayers </h3>
+                    @if(Session::get('flash_message'))
+                    <div class=" alert alert-info {{ Session::get('flash_message') }}">
+                          {{ Session::get('flash_message') }}
+                      </div>
+                      @endif
+
                      @include('admin.manage.add-prayer')
                     <table class="table table-bordered data-table">
                     <thead>
@@ -14,10 +20,10 @@
                         <th>Title</th>
                         <th>Sub title</th>
                         <th>Text</th>
-                        <th>Orderno</th>
+                        <th  width="30px">Order</th>
                         <!-- <th class="audio_stream">Audio</th> -->
-                        <th>Status</th>
-                        <th width="100px">Action</th>
+                        <th width="30px">Status</th>
+                        <th width="30px"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,7 +51,7 @@
             {data: 'orderno', name: 'orderno'},
             // {data: 'prayer_audio', name: 'prayer_audio'},
             {data: 'status', name: 'status'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            {data: 'action', name: 'action', orderable: true, searchable: true},
         ]
     });
   }
@@ -59,7 +65,7 @@
               }
    }
   $( document ).ready(function() {
-     $('.alert').hide();
+      
        $('.toggleForm').bind('click',function(){
         togDiv();
        });

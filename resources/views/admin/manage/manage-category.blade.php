@@ -6,6 +6,11 @@
             <div class="container-fluid">
                 <div class="row">
                      <h3 class="title">Manage category </h3>
+                     @if(Session::get('flash_message'))
+                    <div class=" alert alert-info {{ Session::get('flash_message') }}">
+                          {{ Session::get('flash_message') }}
+                      </div>
+                      @endif
                         @include('admin.manage.add-category')
                     <table class="table table-bordered data-table">
                     <thead>
@@ -13,7 +18,7 @@
                         <th>No</th>
                         <th>Prayer Type</th>
                         <th>Status</th>
-                        <th width="100px">Action</th>
+                        <th width="30px">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,9 +37,10 @@
 
 @section('js')
 <script type="text/javascript">
+     var table = $('.data-table').DataTable();
   function loadData(){
-    console.log("loadData in manage-category"); 
-     var table = $('.data-table').DataTable({
+        table.destroy();
+        table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
         ajax: "{{ route('admin.category-list') }}",
@@ -45,16 +51,16 @@
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
+         
   }
      
    $( document ).ready(function() {
-     $('.alert').hide();
-        setTimeout(function(){
+            setTimeout(function(){
            $(".alertBox").slideUp();
         }, 8000);
         loadData();
 
-
+        
         $( "#submitbtn" ).on( 'click',function( event ) {
          $('.alert').hide().html('');
          event.preventDefault();
@@ -78,10 +84,12 @@
                     $('form .alert-success').html(data.message).fadeIn();
                      document.getElementById("formcategory").reset();
                      ///loadData();
+                     loadData();
                  }
                }
             });
-        });       
+        }); 
+
     });
 </script>
 @stop

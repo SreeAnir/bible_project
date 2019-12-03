@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use File;
 use DB;
 use App\Bibledata;
+use Session;
 
 
 class PrayerController extends Controller
@@ -93,6 +94,25 @@ class PrayerController extends Controller
         $data['prayer_type'] = $prayer_type ; 
         return view('admin.manage.manage-prayer',['prayer_type' => $prayer_type]);
    }
+   
+   public function prayerDelete($idprayers=""){   
+        $data=array(); 
+          Session::flash('flash_message', ' Sorry!  Failed to Delete');
+
+        if ($idprayers!='') {
+          $Prayer = Prayer::where('idprayers',$idprayers)->first();
+          $Prayer->status='2';
+          $save=$Prayer->save();
+          if($save){
+            Session::flash('flash_message', 'Deleted Successfully');
+
+          }  
+          }
+          return back();
+
+            
+      //  return view('admin.manage.manage-prayer',['details' => $prayer]);
+   }
    public function prayerDetails($idprayers){   
         $data=array(); 
         $prayer = Prayer::where('idprayers',$idprayers)->first();
@@ -117,7 +137,8 @@ class PrayerController extends Controller
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                         $btn =  '<a href="/admin/prayer-details/'. $row->idprayers .'" class="btn btn-primary">Edit</a>';
+                         $btn =  '<a href="/admin/prayer-details/'. $row->idprayers .'" > <i class="material-icons">edit</i></a>';
+                         $btn .='<a href="/admin/prayer-delete/'. $row->idprayers .'" > <i alt="View/Edit" class="material-icons">delete</i></a>'; 
                         return $btn;
                     })
                     ->rawColumns(['action'])

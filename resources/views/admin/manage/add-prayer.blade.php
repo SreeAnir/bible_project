@@ -1,11 +1,12 @@
 <?php 
-$style_hide=' style="display: none;" ';
+$style_hide='display: none;';
 $title="Add New Prayer" ;
-if(isset($form_edit)){
+if(isset($form_edit) && @$form_edit==1){
 $style_hide="";
 $title="" ;
 // print_r($details) ; die();
-} ?>
+} 
+?>
 <div class="card">
                 <div class="card-body">
                    
@@ -19,8 +20,8 @@ $title="" ;
             </div>
                 </div>
                
-                    <form {{$style_hide}} id="formPrayer" method="POST" action="{{ route('save-prayer') }}">
-                       @if($details->idprayers!="")
+                    <form style="{{$style_hide}}"  id="formPrayer" method="POST" action="{{ route('save-prayer') }}">
+                       @if(@$details->idprayers!="")
                     <input value="{{@ trim($details->idprayers)}}" id="idprayers" type="hidden"  name="idprayers"   >
                         @endif
                         @csrf
@@ -35,7 +36,7 @@ $title="" ;
                             <select id="prayer"  class="form-control" name="prayer"  required>
                             @foreach ($prayer_type as $type)
                                 <option 
-                                @if( $type->id == $details->prayer ) selected="selected" @endif
+                                @if( $type->id == @$details->prayer ) selected="selected" @endif
                                 value="{{ $type->id }}">{{ $type->name }}</option>
                             @endforeach
                                 </select>
@@ -71,7 +72,7 @@ $title="" ;
                             <input accept="audio/mp3,audio/*;capture=microphone"   id="prayer_audio"  name="prayer_audio"  type="file" multiple="" class="inputFileHidden">
                             <div class="input-group col-md-6">
                                 <input id="prayer_audio_invisible"  type="text" class="form-control inputFileVisible" 
-                                @if($details->prayer_audio!="") placeholder="{{$details->prayer_audio}}" @else  placeholder="Single File"   @endif >
+                                @if(@$details->prayer_audio!="") placeholder="{{$details->prayer_audio}}" @else  placeholder="Single File"   @endif >
                                 
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-fab btn-round btn-primary">
@@ -81,7 +82,7 @@ $title="" ;
                             </div>
 
                         </div>
-                        @if($details->prayer_audio!="")
+                        @if(@$details->prayer_audio!="")
                          
                            <div class="form-group row" >
                         <label for="audio" class="col-md-4 col-form-label text-md-right">Audio Uploaded</label>
