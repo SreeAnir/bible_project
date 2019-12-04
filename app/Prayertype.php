@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Prayer;
 class Prayertype extends Model
 {
 
@@ -12,4 +12,8 @@ class Prayertype extends Model
         'id',
         'name',
     ];
+   public function prayer() {
+    return $this->hasOne('App\Prayer','id','prayer');
+  }
+    
 }

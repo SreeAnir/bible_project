@@ -87,7 +87,8 @@ $title="" ;
                            <div class="form-group row" >
                         <label for="audio" class="col-md-4 col-form-label text-md-right">Audio Uploaded</label>
                         <div class="col-md-4">
-                          <audio src="{{@public_path('storage/upload/files/audio/').$details->prayer_audio}}" id="prev" controls></audio>
+                            
+                    <audio src="{{URL::asset('storage/upload/files/audio/'.$details->prayer_audio)}}" controls></audio>
                         </div>
                        
                         </div>

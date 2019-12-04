@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Prayertype;
 class Prayer extends Model
 {
 
@@ -17,4 +17,7 @@ class Prayer extends Model
         'text',
         'orderno'
     ];
+    public function prayertype() {
+    return $this->belongsTo('App\Prayertype','prayer','id');
+  }
 }

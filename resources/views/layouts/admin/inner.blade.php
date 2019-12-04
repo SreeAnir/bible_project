@@ -128,9 +128,14 @@
                 </div>
             @endif
         </div>
- 
+  <div class="overlay">
+    <div class="overlay__inner">
+        <div class="overlay__content"><span class="spinner"></span></div>
+    </div>
+</div>
         @yield('content')
     </div>
+
 <!-- <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
@@ -243,9 +248,11 @@
      $.extend( true, $.fn.dataTable.defaults, {
             "searching": false,
             "ordering": false,
-             "scrollY": "300px",
+             "scrollY": "350px",
              "scrollCollapse": true,
-            } );   
+             "pageLength": 25
+            } );  
+            $('.overlay').fadeOut("slow"); 
     });
 </script>
 

@@ -19,8 +19,9 @@
        $('.toggleForm').bind('click',function(){
         togDiv();
        });
+       $('.toggleForm-dismiss').html('Cancel');
        $('.toggleForm-dismiss').bind('click',function(){
-        togDiv();
+         window.history.go(-1); return false;
        });
       prayer_audio.onchange = function(e){
           var sound = document.getElementById('sound');
@@ -39,8 +40,14 @@
 
         //delete audio
         $('.clear-audio').on( 'click',function( event ) {
-            $('#audio-preview').hide();
+            $('#audio-preview').fadeOut();
             $('#prayer_audio').val('');
+
+            var audioElement = document.getElementById('sound');
+
+            audioElement.pause();
+            audioElement.removeAttribute('src');  
+            audioElement.load();
             $('#prayer_audio_invisible').val('');
         });
     function validateForm(){
@@ -58,6 +65,7 @@
      return retBool;
   }
     $( "#submitbtn" ).on( 'click',function( event ) {
+      $('.overlay').show(); 
      $('.alert').hide();
          event.preventDefault();
          if(validateForm()){
@@ -76,10 +84,10 @@
                     $('form .alert-danger').html(data.message).fadeIn();
                  }else{
                     $('.form-success').html(data.message).fadeIn();
-                     document.getElementById("formPrayer").reset();
                      $('.clear-audio').trigger('click');
                  }
                  $('#title').focus();
+                 $('.overlay').fadeOut("slow"); 
                }
             });
             }

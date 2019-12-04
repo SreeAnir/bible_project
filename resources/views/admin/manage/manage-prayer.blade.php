@@ -41,10 +41,11 @@
      var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
+        columnDefs:[{targets:4,className:"truncate"}],
         ajax: "{{ route('admin.prayer-list') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'prayer', name: 'prayer'},
+              {data: 'prayer', name: 'prayer'},
             {data: 'title', name: 'title'},
             {data: 'subtitle', name: 'subtitle'},
             {data: 'text', name: 'text'},
@@ -65,7 +66,7 @@
               }
    }
   $( document ).ready(function() {
-      
+        
        $('.toggleForm').bind('click',function(){
         togDiv();
        });
@@ -110,6 +111,7 @@
      return retBool;
   }
     $( "#submitbtn" ).on( 'click',function( event ) {
+    $('.overlay').show(); 
      $('.alert').hide();
          event.preventDefault();
          if(validateForm()){
@@ -131,6 +133,7 @@
                      document.getElementById("formPrayer").reset();
                      $('.clear-audio').trigger('click');
                  }
+                 $('.overlay').fadeOut("slow"); 
                  $('#title').focus();
                }
             });

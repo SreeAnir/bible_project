@@ -62,6 +62,7 @@
 
         
         $( "#submitbtn" ).on( 'click',function( event ) {
+            $('.overlay').show(); 
          $('.alert').hide().html('');
          event.preventDefault();
         if ( $( "#name" ).val() == "" ) {
@@ -86,6 +87,7 @@
                      ///loadData();
                      loadData();
                  }
+                 $('.overlay').fadeOut("slow"); 
                }
             });
         }); 

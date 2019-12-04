@@ -43,7 +43,7 @@ class PrayerController extends Controller
           'prayer' => ['required', 'string', 'max:255'],
           'title' => ['required', 'string', 'max:255'],
           'subtitle' => ['required', 'string', 'max:255'],
-          'text' => ['required', 'string', 'max:255'],
+          'text' => ['required', 'string'],
           'prayer_audio' =>['sometimes'],
       ];
       $validator = Validator::make($request->all(), $rules);
@@ -79,7 +79,7 @@ class PrayerController extends Controller
            }
           $save=$Prayer->save();
           if( $save){
-            echo json_encode(['status'=> 1,'message'=>"Saved Prayer Type"]); 
+            echo json_encode(['status'=> 1,'message'=>"Saved Prayer"]); 
           }else{
             echo json_encode(['status'=> 0 ,'message'=>"Unable to save."]); 
           }
@@ -132,7 +132,9 @@ class PrayerController extends Controller
             }else{
                 $data =$data->where('status' ,'1');
             }
+
             $data =$data->get();
+
             if(!empty($data)){
                 return Datatables::of($data)
                     ->addIndexColumn()
@@ -141,7 +143,11 @@ class PrayerController extends Controller
                          $btn .='<a href="/admin/prayer-delete/'. $row->idprayers .'" > <i alt="View/Edit" class="material-icons">delete</i></a>'; 
                         return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->addColumn('prayer', function($row){
+                         $btn = $row->prayertype['name']; 
+                        return $btn;
+                    })
+                    ->rawColumns(['action','prayer'])
                     ->make(true);
             }
             

@@ -46,9 +46,11 @@ class HomeController extends Controller
      */
     public function dashboard(){   
         $data =array();
-        $data['attendence']="0";
-        $data['internals']="0";
-        $data['uploads'] = 0;
+        $data['user_count']=  User::count();
+        $data['category_count']= Prayertype::where('status','1')->count();
+        $data['prayer_count'] = Prayer::where('status','1')->count();
+        $data['date_count'] =  Bibledata::count();
+
         return view('admin.dashboard',compact('data'));
     }
      public function manageCategory(){   
