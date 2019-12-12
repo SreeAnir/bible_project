@@ -1,10 +1,16 @@
 
 @extends('layouts.admin.inner')
 @section('content')
-
+<?php  $lang_prefix =  Auth::user()->lang['ShortName'] ;  
+if($lang_prefix=='en'){
+$field_name="name";
+}else{
+$field_name="name_".$lang_prefix;
+}
+ ?>
   <div class="content">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row">   
                      <h3 class="title">Manage category </h3>
                      @if(Session::get('flash_message'))
                     <div class=" alert alert-info {{ Session::get('flash_message') }}">
@@ -46,7 +52,7 @@
         ajax: "{{ route('admin.category-list') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'name', name: 'name'},
+            {data:  '{{$field_name}}', name:'{{$field_name}}'},
             {data: 'status', name: 'status'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]

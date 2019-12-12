@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Config;
 use Closure;
 
 class Admin
@@ -15,6 +15,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
+        Config::set('lang_prefix', 'en') ;
         if(auth()->user()->isAdmin == 1){
             return $next($request);
         }

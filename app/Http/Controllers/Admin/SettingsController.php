@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+
      
 use App\User;
 use App\Prayertype;
@@ -13,12 +13,12 @@ use App\Prayer;
 use DataTables;
 use Carbon\Carbon;
 use File;
-// use DB;
+use DB;
 use App\Bibledata;
 use Session;
 
 
-class HomeController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,7 +28,6 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('is_admin');
-
     }
 
     /**
@@ -37,101 +36,31 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {     
         return view('admin.index');
     }
+     
      /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function dashboard(){   
-       $user = auth()->user();
-        $data =array();
-        $data['user_count']=  User::count();
-        $data['category_count']= Prayertype::where('status','1')->count();
-        $data['prayer_count'] = Prayer::where('status','1')->count();
-        $data['date_count'] =  Bibledata::count();
-
-        return view('admin.dashboard',compact('data'));
-    }
-     public function manageCategory(){   
-       
-        return view('admin.manage.manage-category');
-   }
-   
+     
     
-   public function saveCategory(Request $request){
-      $rules = [
-            'id'    => 'sometimes|nullable|exists:prayertype,id',
-            'name' => ['required', 'string', 'max:255'],
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if($validator->fails()){
-             echo json_encode(['status'=>0,'message'=>$validator->errors()->first()]);
-        }else{
-            if ($request->has('id')) {
-            $PrayerType = Prayertype::whereId($request->id)->first();
-            } else{
-            $PrayerType =new Prayertype;
-            }
-             $lang_prefix =  auth()->user()->lang['ShortName'] ; 
-            if($lang_prefix=='en'){
-            $field_name="name";
-            }else{
-            $field_name="name_".$lang_prefix;
-            }
-            $PrayerType->$field_name=$request->name;
-            $save=$PrayerType->save();
-            if( $save){
-                 echo json_encode(['status'=> 1,'message'=>"Saved Prayer Type"]); 
-            }
-
-        }
-         
-   }
-    public function categoryList(Request $request,$condition=array())
-    {  
-        if ($request->ajax()) {
-            $data = PrayerType::latest();
-            if(!empty($condition)){
-                // add condtion
-            }else{
-                $data =$data->where('status' ,'1');
-            }
-            $data =$data->get();
-            if(!empty($data)){
-                return Datatables::of($data)
-                    ->addIndexColumn()
-                     ->addColumn('action', function($row){
-                         $btn =  '<a href="/admin/category-details/'. $row->id .'" > <i alt="View/Edit"   class="material-icons">edit</i></a>';
-                         $btn .='<a href="/admin/category-delete/'. $row->id .'" data-attr='. $row->id .' href1="/admin/category-delete/'. $row->id .'" > <i class="material-icons">delete</i></a>'; 
-                        return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->make(true);
-            }
-            
-        }
-      
-        return view('admin.manage.no-data'); 
-    }
-    public function categoryDetails($id=""){
+    public function saveLanguage($id=""){
         $data=array(); 
-        Session::flash('flash_message', 'Invalid Prayer Type');
+        Session::flash('flash_message_global', 'Failed To Update');
         if ($id!='') {
-            $lang_prefix =  auth()->user()->lang['ShortName'] ; 
-          if($lang_prefix=='en'){
-          $field_name="name";
-          }else{
-          $field_name="name_".$lang_prefix;
-          }
-        $prayer_type = PrayerType::where('id',$id)->select( DB::raw( $field_name." as name"),'id','status')->first();
-        $data['prayer_type'] = $prayer_type ; 
-        $data['form_edit'] =1 ;
-         Session::flash('flash_message', '');
-        return view('admin.manage.view-prayer-type',$data);
-      }else{
+
+        $user = auth()->user();
+        $user_id=($user->id);
+          
+        $user = User::where('id',$user_id)->first();
+        $user->language = $id ;
+        $user->save(); 
+        Session::flash('flash_message_global', 'Language changed Successfully ');
+        return back();
+      }else{ 
        return back();
       }
       //  return view('admin.manage.manage-prayer',['details' => $prayer]);
@@ -149,11 +78,8 @@ class HomeController extends Controller
           } 
           return back();
     }
-    public function manageDate(){
-        $data=array(); 
-        $prayer_type = PrayerType::latest()->where('status' ,'1')->get();
-        $data['prayer_type'] = $prayer_type ; 
-        return view('admin.manage.manage-date',['prayer_type' => $prayer_type]);
+    public function addLanguage(){
+        return view('admin.language.language-add-edit');
     }
     public function loadBibleDateContent(Request $request){
         $data=array(); 

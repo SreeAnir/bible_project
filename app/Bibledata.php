@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bibledata extends Model
 {
 
-    protected $table = 'bibledata';
+    protected $table = 'bibledata_en';
     protected $primaryKey = 'dataId';
     protected $fillable = [
         'dataId',
@@ -35,5 +35,10 @@ class Bibledata extends Model
         'prayText',
         'actText'
     ];
+    public function __construct($type = null) {
+        $lang= Config::get('lang_prefix', 'en') ;
+        parent::__construct();
+        $this->setTable('bibledata_'.$lang);
+    }
 
 }

@@ -30,6 +30,27 @@
  *               Buddha Bless:  "No Bugs"
  *
  * ========================================================= */
+ .language-wrap{
+
+ }
+ .language-selected span{
+  cursor: pointer;
+  padding: 13px 0px;
+ }
+ .language-wrap ul {
+    padding: 13px 0px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #EEE;
+}
+ .language-wrap li {
+    list-style: none;
+    text-align: left;
+    padding: 4px 0px;
+    border-bottom: 0.5px solid #deb8b8;
+}
+ .language-wrap{
+  display: none;
+ }
  .dataTables_length{
   float: left;
  }

@@ -51,6 +51,28 @@
             <span href="#" class="simple-text">
                 BIBLE ADMIN
             </span>
+ 
+            <div class="language-selected" style="text-align: center">
+              <a>  <i class="material-icons">flag</i>
+                    <span  id="set-language" style="color:#9c27b0">
+                     {{Auth::user()->lang['name']}}
+                </span> </a>
+            </div>  
+            <div class="language-wrap" style="text-align: center">
+<?php 
+   $langs = \App\Language::all();  
+?>
+<ul>                          
+    @foreach($langs as $lang)
+     <li ><a  href="/admin/set-language/{{ $lang->id }}"> <i class="material-icons">flag</i>{{ $lang->name }} </a></li>
+    @endforeach                            
+</ul>  
+
+
+                 
+                   
+                     
+            </div> 
 
             <div style="text-align: center">
                 <a href="/admin/logout" >
@@ -105,6 +127,11 @@
     </div>
 <!-- content -->
     <div class="main-panel">
+         @if(Session::get('flash_message_global'))
+                        <div class=" alert alert-info {{ Session::get('flash_message_global') }}">
+                              {{ Session::get('flash_message_global') }}
+                          </div>
+                          @endif
         <div class="alertBox">
             @if (session('validation'))
                 <div class="alert alert-danger">
@@ -244,6 +271,10 @@
         setTimeout(function(){
            $(".alertBox").slideUp();
         }, 8000);
+        $('#set-language').on('click',
+            function(){
+                $('.language-wrap').slideToggle();
+            });
 
      $.extend( true, $.fn.dataTable.defaults, {
             "searching": false,

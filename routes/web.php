@@ -49,5 +49,9 @@ Route::get('/admin/manage-dates', 'Admin\HomeController@manageDate')   ;
 Route::post('admin/load-date-content', 'Admin\HomeController@loadBibleDateContent')->name('load-date-content'); 
 Route::post('admin/save-bible-date', 'Admin\HomeController@saveBibleDateContent')->name('save-bible-date'); 
 
+Route::get('/admin/set-language/{id}', 'Admin\SettingsController@saveLanguage')   ; 
+Route::get('/admin/language/new', 'Admin\SettingsController@addLanguage')   ; 
+Route::get('/admin/save-language', 'Admin\SettingsController@addLanguage')->name('save-language')   ; 
 
+ 
 

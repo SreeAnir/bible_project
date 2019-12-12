@@ -13,6 +13,7 @@ use App\Prayertype;
 use App\Region;
 use App\Sublocation;
 use App\User;
+use URL ;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,7 +42,9 @@ class ApiController extends Controller
     }
 
     public function getAllPrayer(){
-        $bible = Prayer::all();
+        $path=URL::asset('storage/upload/files/audio/');
+         $path_default=URL::asset('storage/upload/files/audio/sample.mp3');
+        $bible = Prayer::select('idprayers','prayer','title','subtitle','text',DB::raw(' (CASE WHEN  prayer_audio<> NULL THEN  CONCAT( "'.$path.'","prayer_audio") ELSE "'.$path_default.'" END) as prayer_audio'),'orderno')->get();
         if(sizeof($bible)>0){
             return response(['status'=>1,'message'=>'Data Found', 'prayers'=>$bible], $this->successStatus);
         }else{
