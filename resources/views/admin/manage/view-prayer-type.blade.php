@@ -4,7 +4,7 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                     <h3 class="title">Prayer Type Details </h3>
+                     <h3 class="title">Prayer Type Details</h3>
                      @include('admin.manage.add-category')
                 </div>
 

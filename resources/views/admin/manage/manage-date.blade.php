@@ -121,6 +121,7 @@
                    $('#bible-date-content').prepend('<div class="show-message alert alert-success">'+data.message+'</div>');
                      ///loadData();
                  }
+                 $('.alert-success').show();
                     $('#ribbonColor').focus();
 
                   $('#edit-form input').prop('readonly', true);
