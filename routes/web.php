@@ -55,3 +55,14 @@ Route::get('/admin/save-language', 'Admin\SettingsController@addLanguage')->name
 
  
 
+// Route::get('import-export-csv-excel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'));
+// Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));
+// Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileController@downloadExcelFile'));
+
+Route::get('download-prayer-file/{type}', array('as'=>'excel-file-prayer','uses'=>'FileController@downloadExcelFilePrayer'));
+Route::post('import-prayer',array('as'=>'import-prayer','uses'=>'FileController@importExcelFilePrayer'));
+
+Route::get('download-bibledata-file/{type}', array('as'=>'excel-file-prayer','uses'=>'FileController@downloadExcelFileBibleDate'));
+Route::post('import-bibledata',array('as'=>'import-bibledata','uses'=>'FileController@importExcelFileBibleData'));
+
+

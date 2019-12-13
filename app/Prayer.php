@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Support\Facades\Auth;
+
 use App\Prayertype;
 use Config;
 
@@ -20,7 +23,7 @@ class Prayer extends Model
         'orderno'
     ];
     public function __construct($type = null) {
-        $lang= Config::get('lang_prefix', 'en') ;
+        $lang=  Auth::user()->lang['ShortName'] ;
         parent::__construct();
         if($lang!='en'){
         $this->setTable('prayers_'.$lang);

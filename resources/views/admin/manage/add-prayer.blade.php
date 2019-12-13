@@ -12,6 +12,8 @@ $title="" ;
                    
                    <div class="form-group row col-md-12">
                    @if($title!="")  <label class="toggleForm" class="col-md-10"><a class="btn">{{$title}}</a></label> @endif 
+                      <a href="/download-prayer-file/xlsx" class="btn btn-primary"> Download Excel</a>
+                   
                     <div class="alert alert-success form-success" role="alert">
                       This is a success alert—check it out!
                     </div>

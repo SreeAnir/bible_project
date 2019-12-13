@@ -5,6 +5,37 @@
             <div class="container-fluid">
                 <div class="row">
                      <h3 class="title">Manage Prayers </h3>
+                     
+                     {!! Form::open(array('route' => 'import-prayer','method'=>'POST','files'=>'true')) !!}
+        <div class="row">
+           <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                   
+                    <div class="col-md-9">
+                       {!! Form::label('prayer_excel','Upload',['class'=>'btn btn-primary']) !!}
+                    {!! Form::file('prayer_excel', array('class' => 'form-control')) !!}
+                    {!! $errors->first('prayer_excel', '<p class="alert alert-danger">:message</p>') !!}
+                    <p>
+                       <b> You can download the Excel and add the content in the same.Only excel files with "xlsx" will be accepted.</b>
+                       <br/><b>Please follow the file columns. </b>  
+                    </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+              <label id="file-name"> </label>
+                    {!! Form::submit('Save',['class'=>'btn btn-success save-file']) !!}
+            
+            </div>
+        </div>
+       {!! Form::close() !!}
+                   @if(session('message-fileupload'))
+                   <div class=" alert alert-info {{ Session::get('flash_message') }}">
+                         {{ session('message-fileupload') }}
+                      </div>
+                    @endif
+                                 
                     @if(Session::get('flash_message'))
                     <div class=" alert alert-info {{ Session::get('flash_message') }}">
                           {{ Session::get('flash_message') }}
@@ -66,7 +97,10 @@
               }
    }
   $( document ).ready(function() {
-        
+         $('.save-file').hide(); 
+        $('#prayer_excel').on('change',function(){
+          $('.save-file').show(); 
+        }) ;
        $('.toggleForm').bind('click',function(){
         togDiv();
        });
