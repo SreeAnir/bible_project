@@ -75,6 +75,9 @@
 .loader-class,.alert-danger,.alert-success{
 	display: none;
 }
+.alert-danger.show,.alert-success.show{
+  display: block !important;
+}
 .validation-div,#audio-preview{
   display: none;
 }
