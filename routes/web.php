@@ -20,6 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // admin Guest Route Start
 Route::get('/admin/login', 'Admin\LoginController@index')   ; 
+Route::get('/admin/logout', 'Admin\LoginController@logout')  ;
 Route::post('/admin/auth', 'Admin\LoginController@checkLogin')    
     ->name('admin_login');
 
@@ -44,6 +45,8 @@ Route::get('admin/prayer-delete/{idprayers}', 'Admin\PrayerController@prayerDele
 
 Route::get('admin/manage-users','Admin\HomeController@ListUser');
 Route::get('users', ['uses'=>'UserController@index', 'as'=>'users.index']);
+Route::get('admin/user-details/{id}', ['uses'=>'UserController@userDetails', 'as'=>'admin.user-details']);
+Route::get('admin/user-delete/{id}', 'UserController@userDelete')->name('user-delete'); 
 
 
 Route::get('/admin/manage-dates', 'Admin\HomeController@manageDate')   ; 

@@ -34,6 +34,11 @@ class LoginController  extends Controller
     {
         return view('admin.login');
     }
+    public function logout()
+    {
+         return redirect('admin/login');
+    }
+     
      
     public function checkLogin(Request $request){
         // Hash::make('123456') ;die();

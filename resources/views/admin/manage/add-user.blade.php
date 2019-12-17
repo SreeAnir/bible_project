@@ -22,6 +22,7 @@ use App\Language;
                             <div class="col-md-8">
                             <input value="{{@ trim($details->name)}}" id="title" type="text" class="form-control" name="name"  required autocomplete  autofocus>
                              <input value="{{@ trim($details->id)}}" id="id" type="hidden" class="form-control" name="id"  required autocomplete  autofocus>
+                             
                             </div>
                         </div>
 <div class="form-group col-md-6">
@@ -38,9 +39,15 @@ use App\Language;
                             <div class="col-md-8">
                                 
                                  <select id="type" class="form-control" name="type"  required autocomplete  autofocus> 
+                                    <option  
+                                    @if(@$details->type == 2 )
+                                     selected="selected" 
+                                    @endif
+                                     value=2>Content Manager</option>
+                                    <option @if(@$details->type == 3 )
+                                     selected="selected" 
+                                    @endif value=3>User</option>
 
-                                    <option value="3">User</option>
-                                    <option value="2">Content Manager</option>
                                  </select>
                             </div>
                         </div>
@@ -74,9 +81,15 @@ use App\Language;
                                  
                             </div>
                             <div class="col-md-2 offset-md-4 float-right">
-                                 <button type="reset" class="btn btn-secondary toggleForm-dismiss">
+                                @if(@$details->id =="")
+                                <button type="reset" class="btn btn-secondary toggleForm-dismiss">
                                     {{ __('Dismiss') }}
                                 </button>
+                                @else
+                                 <a class="btn btn-secondary" href="/admin/manage-users"> {{ __('Back') }} </a>
+                                
+                                @endif
+                                 
                             </div>
                         </div>
                     </form>

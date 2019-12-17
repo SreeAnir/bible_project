@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Material Dashboard by Creative Tim | Free Material Bootstrap Admin</title>
+    <title>BIBLE DiARY </title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -49,7 +49,18 @@
 
         <div class="logo">
             <span href="#" class="simple-text">
-                BIBLE ADMIN
+                <?php
+                use App\User;
+                ?>
+                 @if(Auth::user()->type== User::SUPER_ADMIN_TYPE)
+                 BIBLE SUPER ADMIN
+                 @endif
+                  @if(Auth::user()->type== User::ADMIN_USER)
+                 BIBLE CONTENT ADMIN
+                 @endif
+                  @if(Auth::user()->type== User::DEFAULT_TYPE)
+                 BIBLE USER
+                 @endif
             </span>
  
             <div class="language-selected" style="text-align: center">
@@ -113,12 +124,7 @@
                         <p>Manage Category</p>
                     </a>
                 </li>
-               <li @if(request()->segment(2)=="manage-users")class="active" @endif>
-                                    <a href="/admin/manage-users">
-                                        <i class="material-icons">people_alt</i>
-                                        <p>Manage Users</p>
-                                    </a>
-                  </li>
+             
                   @endif
                 <li @if(request()->segment(2)=="manage-prayer")class="active" @endif>
                     <a href="/admin/manage-prayer">
@@ -132,6 +138,12 @@
                         <p>Manage Dates</p>
                     </a>
                 </li>
+                  <li @if(request()->segment(2)=="manage-users")class="active" @endif>
+                                    <a href="/admin/manage-users">
+                                        <i class="material-icons">people_alt</i>
+                                        <p>Manage Users</p>
+                                    </a>
+                  </li>
                 
                 </ul>
         </div>

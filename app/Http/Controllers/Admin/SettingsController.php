@@ -120,6 +120,7 @@ class SettingsController extends Controller
             }else{
               $array_message.="Language Updated.";
             }
+            return redirect()->route('creat_user');
 
           }
 

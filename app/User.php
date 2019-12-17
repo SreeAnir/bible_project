@@ -10,9 +10,14 @@ use Config;
 class User extends Authenticatable
 {
     use Notifiable;
-    const SUPER_ADMIN_TYPE = '1';
-    const ADMIN_USER = '2';
-    const DEFAULT_TYPE = '0';
+    const SUPER_ADMIN_TYPE = 1;
+    const ADMIN_USER = 2;
+    const DEFAULT_TYPE = 0;
+
+    const ACTIVE = 1;
+    const DELETED = 2;
+    const INACTIVE = 0;
+
     public function isAdmin(){   
         Config::set('lang_prefix',$this->lang['ShortName']) ;
         if($this->type === self::ADMIN_USER){
