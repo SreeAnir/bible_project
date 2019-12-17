@@ -12,16 +12,14 @@
                 <div class="form-group">
                    
                     <div class="col-md-9">
-                       {!! Form::label('prayer_excel','Upload',['class'=>'btn btn-primary']) !!}
-                    {!! Form::file('prayer_excel', array('class' => 'form-control')) !!}
+                       {!! Form::label('prayer_excel','Upload .xlsx File',['class'=>'btn btn-primary']) !!}
+                    {!! Form::file('prayer_excel',  array('class' => 'form-control' ,'accept'=> '.xlsx')) !!}
                     {!! $errors->first('prayer_excel', '<p class="alert alert-danger">:message</p>') !!}
-                    <p>
-                       <b> You can download the Excel and add the content in the same.Only excel files with "xlsx" will be accepted.</b>
-                       <br/><b>Please follow the file columns. </b>  
-                    </p>
+                  
                     </div>
 
                 </div>
+                  
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
               <label id="file-name"> </label>
@@ -29,6 +27,13 @@
             
             </div>
         </div>
+         <div class="col-xs-12 col-sm-12 col-md-12">
+          <p>
+                       <b> You can download the Excel and add the content in the same.Only excel files with "xlsx" will be accepted.</b>
+                       <br/><b>Please follow the field heading in excel.Column idprayers is unique,so for new record , +1 to the idprayers. </b> <br/> 
+                       <i>For example,the downloaded excel has last idprayers as 100,you have to begin with  101 in idprayers to add  new prayer.</i>
+                    </p>
+         </div>
        {!! Form::close() !!}
                    @if(session('message-fileupload'))
                    <div class=" alert alert-info {{ Session::get('flash_message') }}">

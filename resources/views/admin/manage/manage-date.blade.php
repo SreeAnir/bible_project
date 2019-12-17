@@ -15,13 +15,10 @@
                       <div class="card-body col-md-12">
                          <div class="col-xs-12 col-sm-12 col-md-12">
                           
-                    <p>
-                                     <b> You can download the Excel and add the content in the same.Only excel files with "xlsx" will be accepted.</b>
-                                     <br/><b>Please follow the file columns. </b>  
-                                  </p>
+                    
                               <div class="col-md-3">
-                                     {!! Form::label('bible_data_excel','Upload',['class'=>'btn btn-primary']) !!}
-                                  {!! Form::file('bible_data_excel', array('class' => 'form-control')) !!}
+                                     {!! Form::label('bible_data_excel','Upload .xlsx File',['class'=>'btn btn-primary']) !!}
+                                  {!! Form::file('bible_data_excel', array('class' => 'form-control' ,'accept'=> '.xlsx')) !!}
                                   {!! $errors->first('bible_data_excel', '<p class="alert alert-danger">:message</p>') !!}
                                   
                               </div>
@@ -32,6 +29,13 @@
                           <a href="/download-bibledata-file/xlsx" class="btn btn-primary">Download Excel</a>
                           </div>
                           </div>
+                          <div class="col-xs-12 col-sm-12 col-md-12">
+                      <p>
+                       <b> You can download the Excel and add the content in the same.Only excel files with "xlsx" will be accepted.</b>
+                       <br/><b>Please follow the field heading in excel.Column dataId is unique,so for new record , +1 to the dataId. </b> <br/> 
+                       <i>For example,the downloaded excel has last dataId as 100,you have to begin with  101 in dataId to add  new prayer.</i>
+                    </p>
+         </div>
                           <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                             <label id="file-name"> </label>
                                

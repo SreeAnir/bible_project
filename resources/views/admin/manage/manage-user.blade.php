@@ -6,9 +6,19 @@
                 <div class="row">
                      <h3 class="title">Manage User </h3>
                     <p >
-                        Here you can Add / Edit / Delete Categories 
+                        Here you can Add / Edit / Delete Users 
                     </p> 
-
+                    @if(Session::get('flash_success'))
+                    <div class=" alert alert-info {{ Session::get('flash_success') }}">
+                          {{ Session::get('flash_success') }}
+                      </div>
+                      @endif
+                       @if(Session::get('flash_error'))
+                    <div class=" alert alert-danger {{ Session::get('flash_error') }}">
+                          {{ Session::get('flash_error') }}
+                      </div>
+                      @endif
+                        @include('admin.manage.add-user')
                     <table class="table table-bordered data-table">
                     <thead>
                     <tr>

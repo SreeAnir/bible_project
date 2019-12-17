@@ -16,7 +16,9 @@ use File;
 use DB;
 use App\Bibledata;
 use Session;
-
+use App\Patron;
+use App\AppMessage;
+use App\Language;
 
 class SettingsController extends Controller
 {
@@ -65,6 +67,72 @@ class SettingsController extends Controller
       }
       //  return view('admin.manage.manage-prayer',['details' => $prayer]);
     }
+    public function addLanguage($id=""){
+        $lans=Language::all();
+        $params=array("list" => $lans);
+        $params['row_data']="";
+        if($id!=""){
+         $params['row_data']=Language::where('id',$id)->first();
+        }
+        return view('admin.language.language-add-edit',$params);
+    }
+    public  function newLanguageSave(Request $request)
+    {
+      try{
+           $rules = [
+          'name'    => ['required', 'string'],
+           'ShortName'    => ['required', 'string'],
+      ];
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails()){
+           Session::flash('flash_error_language', $validator->errors()->first());
+            return back();
+      }else{ 
+         Session::flash('flash_error_language','');
+        $array_message='';
+        $type='new';
+          if ($request->has('id') && $request->id!="") {
+          $Language = Language::where('id',$request->id)->first();
+           $type='edit';
+          } else{
+          $Language =new Language;
+          }
+          $Language->name=$request->name;
+          $Language->ShortName=$request->ShortName;
+          if($Language->save()){
+            
+            if( $type=='new'){
+              $array_message.="Language Added.";
+            $table_prayer= \DB::statement('CREATE TABLE prayers_'.$request->ShortName.' LIKE prayers_en');
+            if( $table_prayer){
+            \DB::statement('INSERT prayers_'.$request->ShortName.' SELECT * FROM prayers_en');
+             $array_message.="Prayer  Table Added.";
+            }else{
+              $array_message.="Failed to Add Prayer Table.";
+            }
+            $table_bible= \DB::statement('CREATE TABLE bibledata_'.$request->ShortName.' LIKE bibledata_en');
+            if( $table_bible){
+            \DB::statement('INSERT bibledata_'.$request->ShortName.' SELECT * FROM bibledata_en');
+             $array_message.="Bible Data  Table Added.";
+            }else{
+              $array_message.="Failed to Add Bible Data Table.";
+            }
+            }else{
+              $array_message.="Language Updated.";
+            }
+
+          }
+
+      }
+      Session::flash('flash_message_language', $array_message);
+
+      
+    } catch (Exception $e) {
+           Session::flash('flash_error_language',  $e->getMessage());
+ 
+        }
+        return redirect('admin/language');
+    }
     public function categoryDelete($id=""){
         $data=array(); 
          Session::flash('flash_message', ' Sorry!  Failed to Delete');
@@ -78,9 +146,109 @@ class SettingsController extends Controller
           } 
           return back();
     }
-    public function addLanguage(){
-        return view('admin.language.language-add-edit');
+    public function appMessage(){
+       $app_message=AppMessage::first();
+        return view('admin.setting.message-add-edit' ,array('app_message' =>$app_message));
     }
+    
+    public function messageDataSave(Request $request){
+        try{
+           $rules = [
+          'message'    => ['required', 'string'],
+      ];
+
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails()){
+           Session::flash('flash_message_app', $validator->errors()->first());
+            return back();
+      }else{ 
+
+        if ($request->has('id') && $request->id!="") {
+          $Msg = AppMessage::where('id',$request->id)->first();
+          } else{
+          $Msg =new AppMessage;
+          }
+          $Msg->message=$request->message;
+           
+          $save=$Msg->save();
+         
+          if( $save){
+             Session::flash('flash_message_app', 'Saved Message  Data');
+          }else{
+            Session::flash('flash_message_app', 'Saved Message Data');
+          }
+           return back();
+
+
+      }
+        }catch (Exception $e) {
+           Session::flash('flash_message_patron', $e->getMessage());
+            return back();
+
+        }
+    }
+    public function patronData(){
+      $patron=Patron::first();
+        return view('admin.setting.add-edit-patron',array('patron' =>$patron));
+    }
+    public function patronDataSave(Request $request){
+        try{
+           $rules = [
+          'patron_name'    => ['required', 'string', 'max:255'],
+          'patron_date' => ['required', 'string', 'max:255'],
+          'patron_text' => ['required', 'string'],
+      ];
+
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails()){
+           Session::flash('flash_message_patron', $validator->errors()->first());
+            return back();
+      }else{ 
+
+           if ($request->has('id') && $request->id!="") {
+          $Patron = Patron::where('id',$request->id)->first();
+          } else{
+          $Patron =new Patron;
+          }
+          $Patron->patron_name=$request->patron_name;
+          $Patron->patron_date=$request->patron_date;
+          $Patron->patron_text=$request->patron_text;
+          
+          if($request->has('patron_image')){
+            $uniqueid=uniqid();
+             $file = $request->file('patron_image');
+            $original_name=$request->file('patron_image')->getClientOriginalName();
+            $size=$request->file('patron_image')->getSize();
+            $extension=$request->file('patron_image')->getClientOriginalExtension();
+            $filename=Carbon::now()->format('Ymd').'_'.$uniqueid.'.'.$extension;
+            //$audiopath=url('/storage/upload/files/audio/'.$filename);
+            $destinationPath='storage/upload/files/image/';
+            // $path=$file->storeAs('public/upload/files/audio/',$filename);die();
+            $file->move($destinationPath,$filename);
+            // $all_audios=$filename;\
+             if(file_exists($destinationPath.$filename)){
+               $Patron->patron_image=$filename;
+             }
+            
+           }
+          $save=$Patron->save();
+         
+          if( $save){
+             Session::flash('flash_message_patron', 'Saved Patron Data');
+          }else{
+            Session::flash('flash_message_patron', 'Saved Patron Data');
+          }
+           return back();
+
+
+      }
+        }catch (Exception $e) {
+           Session::flash('flash_message_patron', $e->getMessage());
+            return back();
+
+        }
+    }
+    
     public function loadBibleDateContent(Request $request){
         $data=array(); 
         $date=$request->date;

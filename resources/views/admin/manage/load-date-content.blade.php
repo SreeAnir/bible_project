@@ -26,8 +26,14 @@
     <input name="date" id="date" type="hidden" value="{{@$bibleData->date}}">
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Ribbon Color</label>
-        <div class="col-md-6">
-            <input id="ribbonColor" value="{{@$bibleData->ribbonColor}}" type="text" class="form-control required" name="ribbonColor" required autocomplete="" autofocus="">
+        <div class="col-md-6" class="form-control required"  name="ribbonColor">
+            <select class="form-control selectpicker" data-style="btn btn-link"  id="ribbonColor">
+                <option  @if($bibleData->ribbonColor=="Green") selected @endif value="Green">Green</option>
+                <option  @if($bibleData->ribbonColor=="Purple") selected="selected" @endif value="Purple">Purple</option>
+                <option  @if($bibleData->ribbonColor=="Red") selected @endif value="Red">Red</option>
+                <option  @if($bibleData->ribbonColor=="White") selected @endif value="White">White</option>
+            </select>
+            <!-- <input id="ribbonColor" value="{{@$bibleData->ribbonColor}}" type="text" class="form-control required" name="ribbonColor" required autocomplete="" autofocus=""> -->
         </div>
      <span class="material-input"></span>
     </div>

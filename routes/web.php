@@ -32,6 +32,7 @@ Route::get('admin/category-list', ['uses'=>'Admin\HomeController@categoryList', 
 Route::get('admin/category-details/{id}', ['uses'=>'Admin\HomeController@categoryDetails', 'as'=>'admin.category-details']);
 Route::get('admin/category-delete/{id}', ['uses'=>'Admin\HomeController@categoryDelete', 'as'=>'admin.category-delete']);
 
+Route::post('admin/save-user', 'UserController@addEdituser')->name('save-user'); 
 
 
 
@@ -50,10 +51,18 @@ Route::post('admin/load-date-content', 'Admin\HomeController@loadBibleDateConten
 Route::post('admin/save-bible-date', 'Admin\HomeController@saveBibleDateContent')->name('save-bible-date'); 
 
 Route::get('/admin/set-language/{id}', 'Admin\SettingsController@saveLanguage')   ; 
-Route::get('/admin/language/new', 'Admin\SettingsController@addLanguage')   ; 
-Route::get('/admin/save-language', 'Admin\SettingsController@addLanguage')->name('save-language')   ; 
+Route::get('/admin/language', 'Admin\SettingsController@addLanguage')   ; 
+Route::post('/admin/save-language', 'Admin\SettingsController@newLanguageSave')->name('save-language')   ; 
+Route::get('/admin/edit-language/{id}', 'Admin\SettingsController@addLanguage')   ; 
 
- 
+
+Route::get('/admin/patron', 'Admin\SettingsController@patronData')   ; 
+Route::post('/admin/save-patron', 'Admin\SettingsController@patronDataSave')->name('save-patron')   ; 
+
+Route::get('/admin/app-message', 'Admin\SettingsController@appMessage')   ; 
+Route::post('/admin/save-message', 'Admin\SettingsController@messageDataSave')->name('save-message')   ; 
+
+
 
 // Route::get('import-export-csv-excel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'));
 // Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));

@@ -23,7 +23,10 @@ class Prayer extends Model
         'orderno'
     ];
     public function __construct($type = null) {
-        $lang=  Auth::user()->lang['ShortName'] ;
+        $lang='en';
+        if(Auth::user()){
+        $lang= Auth::user()->lang['ShortName'] ;
+        }
         parent::__construct();
         if($lang!='en'){
         $this->setTable('prayers_'.$lang);

@@ -62,16 +62,13 @@
 <?php 
    $langs = \App\Language::all();  
 ?>
+@if( Auth::user()->type == 1)
 <ul>                          
     @foreach($langs as $lang)
      <li ><a  href="/admin/set-language/{{ $lang->id }}"> <i class="material-icons">flag</i>{{ $lang->name }} </a></li>
     @endforeach                            
 </ul>  
-
-
-                 
-                   
-                     
+ @endif                
             </div> 
 
             <div style="text-align: center">
@@ -83,45 +80,59 @@
 
         </div>
 
-
-
-
         <div class="sidebar-wrapper">
             <ul class="nav">
-
-
+                @if( Auth::user()->type == 1)
                 <li @if(request()->segment(2)=="dashboard")class="active" @endif>
                     <a href="/admin/dashboard">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-
+                  <li @if(request()->segment(2)=="patron")class="active" @endif>
+                    <a href="/admin/patron">
+                        <i class="material-icons">person_pin</i>
+                        <p>Manage Patron</p>
+                    </a>
+                </li>
+                 <li @if(request()->segment(2)=="app-message")class="active" @endif>
+                    <a href="/admin/app-message">
+                        <i class="material-icons">message</i>
+                        <p>Manage Message</p>
+                    </a>
+                </li>
+                <li @if(request()->segment(2)=="language")class="active" @endif>
+                    <a href="/admin/language">
+                        <i class="material-icons">calendar_today</i>
+                        <p>Manage Language</p>
+                    </a>
+                </li>
                 <li @if(request()->segment(2)=="manage-category")class="active" @endif>
                     <a href="/admin/manage-category">
-                        <i class="material-icons">person</i>
+                        <i class="material-icons">category</i>
                         <p>Manage Category</p>
                     </a>
                 </li>
-                
+               <li @if(request()->segment(2)=="manage-users")class="active" @endif>
+                                    <a href="/admin/manage-users">
+                                        <i class="material-icons">people_alt</i>
+                                        <p>Manage Users</p>
+                                    </a>
+                  </li>
+                  @endif
                 <li @if(request()->segment(2)=="manage-prayer")class="active" @endif>
                     <a href="/admin/manage-prayer">
-                        <i class="material-icons">person</i>
+                        <i class="material-icons">library_books</i>
                         <p>Manage Prayer</p>
                     </a>
                 </li>
                 <li @if(request()->segment(2)=="manage-dates")class="active" @endif>
                     <a href="/admin/manage-dates">
-                        <i class="material-icons">person</i>
+                        <i class="material-icons">calendar_today</i>
                         <p>Manage Dates</p>
                     </a>
                 </li>
-                <li @if(request()->segment(2)=="manage-users")class="active" @endif>
-                                    <a href="/admin/manage-users">
-                                        <i class="material-icons">person</i>
-                                        <p>Manage Users</p>
-                                    </a>
-                                </li>
+                
                 </ul>
         </div>
     </div>

@@ -21,3 +21,6 @@ Route::get('get-all-prayer','Api\ApiController@getAllPrayer');
 Route::get('get-all-prayertypes','Api\ApiController@getAllPrayerTypes');
 Route::get('get-prayer-by-type','Api\ApiController@getAllPrayerByType');
 Route::get('get-bible-by-date','Api\ApiController@getBibleByDate');
+
+Route::get('get-app-message','Api\ApiController@getAppMessage');
+Route::get('get-patron','Api\ApiController@getPatronData');
