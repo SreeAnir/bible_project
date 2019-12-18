@@ -168,7 +168,7 @@ class HomeController extends Controller
       
       $rules = [
             'dataId'    => 'sometimes|nullable',
-            'ribbonColor' => ['required', 'string', 'max:255'],
+            'ribbonColor' => ['required'],
         ];
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
@@ -189,7 +189,11 @@ class HomeController extends Controller
             
             $Bibledata->dataId=$request->dataId;
 
-            $Bibledata->ribbonColor = $request->ribbonColor;  
+            $Bibledata->ribbonColor = $request->ribbonColor;
+
+            $Bibledata->intercessoryPrayer = $request->intercessoryPrayer;  
+            $Bibledata->dailyQuote = $request->dailyQuote;  
+            
             $Bibledata->date = $request->date;  
             $Bibledata->weekDescription = $request->weekDescription;
             $Bibledata->psalter = $request->psalter;

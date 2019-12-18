@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'Admin\LoginController@index');
+Route::get('/','Admin\HomeController@dashboard');
+
 
 Auth::routes();
 Route::post('admin/save-category', 'Admin\HomeController@saveCategory')->name('save-category'); ;

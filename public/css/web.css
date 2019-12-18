@@ -33,6 +33,11 @@
  .language-wrap{
 
  }
+ .required_star{
+  color: red;
+  margin-left: 5px;
+  width: 10px;
+ }
  .language-selected span{
   cursor: pointer;
   padding: 13px 0px;

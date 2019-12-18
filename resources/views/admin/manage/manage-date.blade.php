@@ -67,7 +67,38 @@
 @stop
 @section('js')
 <script type="text/javascript">
+  function checkRequired(){
 
+    var datechosen=$('#date-chosen').val();
+     datechosen = new Date(datechosen);
+     console.log("datechosen.getDay()",datechosen.getDay());
+     if(datechosen.getDay() === 0){ 
+      if($('#psalmResponse').val()==""){
+        alert("Responsorial Psalm is required for Sunday");
+        return false;
+      }
+       if($('#intercessoryPrayer').val()==""){
+        alert("Intercessory Prayers / Prayer of the Faithful required for Sunday");
+        return false;
+      }     
+
+      if($('#secondReadingReference').val()==""){
+        alert("Second Reading Reference is required for Sunday");
+        return false;
+      }
+      if($('#secondReadingTitle').val()==""){
+        alert("Second Reading Title is required for Sunday");
+        return false;
+      }
+       if($('#secondReadingText').val()==""){
+        alert("Second Reading Text is required for Sunday");
+        return false;
+      }
+      return true;
+              //sunday
+      }
+  return true;
+  }
   function loadDateData(){
   $('#edit-form input').prop('readonly', true);  
   $('.save-data').hide();
@@ -103,6 +134,9 @@
   }
   function validateForm(){
     var retBool=1;
+     if(! checkRequired() ){
+      return false;
+     }
      $("#formBibleData").find('.required').each(function() {
       var data = {};
       (this.value) = (this.value).trim() ;
@@ -150,6 +184,7 @@
                 type: 'POST',
                 success:function(data) {
                  data=(JSON.parse(data));
+                 $('.show-message').remove();
                  if(!data.status){
                   $('.show-message').fadeOut(2000);
                    $('#bible-date-content').prepend('<div class="show-message alert alert-danger">'+data.message+'</div>');
@@ -158,7 +193,7 @@
                    $('#bible-date-content').prepend('<div class="show-message alert alert-success">'+data.message+'</div>');
                      ///loadData();
                  }
-                 $('.alert-success').show();
+                 $('.show-message').show();
                     $('#ribbonColor').focus();
 
                   $('#edit-form input').prop('readonly', true);

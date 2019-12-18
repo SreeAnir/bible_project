@@ -39,7 +39,7 @@ class PrayerController extends Controller
      
    public function savePrayer(Request $request){
     $rules = [
-          'idprayers'    => 'sometimes|nullable|exists:prayers,idprayers',
+          'idprayers'    => 'sometimes|nullable',
           'prayer' => ['required', 'string', 'max:255'],
           'title' => ['required', 'string', 'max:255'],
           'subtitle' => ['required', 'string', 'max:255'],
@@ -47,6 +47,7 @@ class PrayerController extends Controller
           'prayer_audio' =>['sometimes'],
       ];
       $validator = Validator::make($request->all(), $rules);
+
       if($validator->fails()){
            echo json_encode(['status'=>0,'message'=>$validator->errors()->first()]);
       }else{

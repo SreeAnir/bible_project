@@ -15,6 +15,8 @@ class Bibledata extends Model
         'dataId',
         'date',
         'ribbonColor',
+        'intercessoryPrayer',
+        'dailyQuote',
         'weekDescription',
         'psalter',
         'saintOfTheDay',

@@ -1,4 +1,4 @@
-<form id="formBibleData" method="POST">
+<form id="formBibleData" method="POST" onsubmit="return checkRequired()">
      <div class="alert alert-danger validation-div" role="alert">
     Please enter the fields
     </div>
@@ -23,11 +23,11 @@
      ?>
     <div id="{{$class}}"> 
     <input name="dataId" id="dataId" type="hidden" value="{{@$bibleData->dataId}}">
-    <input name="date" id="date" type="hidden" value="{{@$bibleData->date}}">
+    <input required name="date" id="date" type="hidden" value="{{@$bibleData->date}}">
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Ribbon Color</label>
-        <div class="col-md-6" class="form-control required"  name="ribbonColor">
-            <select class="form-control selectpicker" data-style="btn btn-link"  id="ribbonColor">
+        <label for="" class="col-md-4 col-form-label text-md-right">Ribbon Color<span class="required_star">*</span></label>
+        <div class="col-md-6" class="form-control required" >
+            <select  name="ribbonColor" required class="form-control selectpicker" data-style="btn btn-link"  id="ribbonColor">
                 <option  @if($bibleData->ribbonColor=="Green") selected @endif value="Green">Green</option>
                 <option  @if($bibleData->ribbonColor=="Purple") selected="selected" @endif value="Purple">Purple</option>
                 <option  @if($bibleData->ribbonColor=="Red") selected @endif value="Red">Red</option>
@@ -38,49 +38,49 @@
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Week Description</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Week Description<span class="required_star">*</span></label>
         <div class="col-md-6">
             <input value="{{@$bibleData->weekDescription}}"  id="weekDescription" type="text" class="form-control required" name="weekDescription" required="" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Psalter</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Psalter<span class="required_star">*</span></label>
         <div class="col-md-6">
-            <input value="{{@$bibleData->psalter}}"  id="psalter" type="text" class="form-control required" name="psalter" required="" autocomplete="" autofocus="">
+            <input value="{{@$bibleData->psalter}}"  id="psalter" type="text" class="form-control required" required name="psalter" required="" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Saint Of The Day</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Saint Of The Day<span class="required_star">*</span></label>
         <div class="col-md-6">
             <input value="{{@$bibleData->saintOfTheDay}}"  id="saintOfTheDay" type="text" class="form-control required" name="saintOfTheDay" required="" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Significance Of The Day</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Significance Of The Day<span class="required_star">*</span></label>
         <div class="col-md-6">
             <input value="{{@$bibleData->significanceOfTheDay}}" id="significanceOfTheDay" type="text" class="form-control required" name="significanceOfTheDay" required="" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">First Reading Reference</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">First Reading Reference<span class="required_star">*</span></label>
         <div class="col-md-6">
             <textarea rows="5" id="firstReadingReference"  class="form-control required" name="firstReadingReference" required="" autocomplete=""  rows="5">{{@$bibleData->firstReadingReference}}</textarea>
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">First Reading Title</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">First Reading Title<span class="required_star">*</span></label>
         <div class="col-md-6">
             <input id="firstReadingTitle" value="{{@$bibleData->firstReadingTitle}}"  type="text" class="form-control required" name="firstReadingTitle" required="" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">First Reading Text</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">First Reading Text<span class="required_star">*</span></label>
         <div class="col-md-6">
             <textarea rows="5" id="firstReadingText"  class="form-control required" name="firstReadingText" required="" autocomplete="" autofocus="">{{@$bibleData->firstReadingText}}
             </textarea>
@@ -88,14 +88,14 @@
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty" value="{{@$bibleData->firstReadingText}}">
-        <label for="" class="col-md-4 col-form-label text-md-right">Psalm Reference</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Psalm Reference<span class="required_star">*</span></label>
         <div class="col-md-6">
             <input value="{{@$bibleData->psalmReference}}"  id="psalmReference" type="text" class="form-control required" name="psalmReference" required="" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Psalm Text</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Psalm Text<span class="required_star">*</span></label>
         <div class="col-md-6">
             <textarea rows="5" id="psalmText" type="text" class="form-control required" name="psalmText" required="" autocomplete="" autofocus="">{{@$bibleData->psalmText}}
             </textarea>
@@ -103,30 +103,30 @@
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Psalm Response</label>
+        <label for="" class="col-md-4 col-form-label text-md-right"> Responsorial Psalm</label>
         <div class="col-md-6">
-            <input value="{{@$bibleData->psalmResponse}}" id="psalmResponse" type="text" class="form-control required" name="psalmResponse" required="" autocomplete="" autofocus="">
+            <input value="{{@$bibleData->psalmResponse}}" id="psalmResponse" type="text" class="form-control" name="psalmResponse" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Second Reading Reference</label>
         <div class="col-md-6">
-            <input value="{{@$bibleData->secondReadingReference}}" id="secondReadingReference" type="text" class="form-control required" name="secondReadingReference" required="" autocomplete="" autofocus="">
+            <input value="{{@$bibleData->secondReadingReference}}" id="secondReadingReference" type="text" class="form-control" name="secondReadingReference"   autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Second Reading Title</label>
         <div class="col-md-6">
-            <input value="{{@$bibleData->secondReadingTitle}}"  id="secondReadingTitle" type="text" class="form-control required" name="secondReadingTitle" required="" autocomplete="" autofocus="">
+            <input value="{{@$bibleData->secondReadingTitle}}"  id="secondReadingTitle" type="text" class="form-control " name="secondReadingTitle" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Second Reading Text</label>
         <div class="col-md-6">
-            <textarea rows="5" id="secondReadingText" type="text" class="form-control required" name="secondReadingText" required="" autocomplete="" autofocus="">{{@$bibleData->secondReadingText}}</textarea>
+            <textarea rows="5" id="secondReadingText" type="text" class="form-control" name="secondReadingText"   autocomplete="" autofocus="">{{@$bibleData->secondReadingText}}</textarea>
         </div>
      <span class="material-input"></span>
     </div>
@@ -138,14 +138,14 @@
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Gospel Title</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Gospel Title<span class="required_star">*</span></label>
         <div class="col-md-6">
             <input  value="{{@$bibleData->gospelTitle}}" id="gospelTitle" type="text" class="form-control required" name="gospelTitle" required="" autocomplete="" autofocus="">
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Gospel Text</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Gospel Text<span class="required_star">*</span></label>
         <div class="col-md-6">
             <textarea rows="5" id="gospelText" class="form-control required" name="gospelText" required="" autocomplete="" autofocus="">{{@$bibleData->gospelText}}
             </textarea>
@@ -153,7 +153,7 @@
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Reflection Text</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Reflection Text<span class="required_star">*</span></label>
         <div class="col-md-6">
             <textarea rows="5" id="reflectionText"  class="form-control required" name="reflectionText" required="" autocomplete="" autofocus="">{{@$bibleData->reflectionText}}
             </textarea>
@@ -161,7 +161,7 @@
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Read Text</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Read Text<span class="required_star">*</span></label>
         <div class="col-md-6">
             <textarea rows="5" id="readText" class="form-control required" name="readText" required="" autocomplete="" autofocus="">{{@$bibleData->readText}}
             </textarea>
@@ -169,7 +169,7 @@
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Reflect Text</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Reflect Text<span class="required_star">*</span></label>
         <div class="col-md-6">
             <textarea rows="5" id="reflectText"  class="form-control required" name="reflectText" required="" autocomplete="" autofocus="">{{@$bibleData->reflectText}}
             </textarea>
@@ -179,15 +179,31 @@
     <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Pray Text</label>
         <div class="col-md-6">
-            <textarea rows="5" id="prayText"  class="form-control required" name="prayText" required="" autocomplete="" autofocus="">{{@$bibleData->prayText}}
+            <textarea rows="5" id="prayText"  class="form-control" name="prayText" autocomplete="" autofocus="">{{@$bibleData->prayText}}
             </textarea>
         </div>
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
-        <label for="" class="col-md-4 col-form-label text-md-right">Act Text</label>
+        <label for="" class="col-md-4 col-form-label text-md-right">Act Text<span class="required_star">*</span></label>
         <div class="col-md-6">
             <textarea rows="5" id="actText"  class="form-control required" name="actText" required="" autocomplete="" autofocus="">{{@$bibleData->actText}}
+            </textarea> 
+        </div>
+     <span class="material-input"></span>
+    </div>
+    <div class="form-group row is-empty">
+        <label for="" class="col-md-4 col-form-label text-md-right">Daily Quote<span class="required_star">*</span></label>
+        <div class="col-md-6">
+            <textarea rows="5" id="dailyQuote"  class="form-control required" name="dailyQuote" required="" autocomplete="" autofocus="">{{@$bibleData->dailyQuote}}
+            </textarea> 
+        </div>
+     <span class="material-input"></span>
+    </div>
+    <div class="form-group row is-empty">
+        <label for="" class="col-md-4 col-form-label text-md-right">Intercessory Prayers / Prayer of the Faithful</label>
+        <div class="col-md-6">
+            <textarea rows="5" id="intercessoryPrayer"  class="form-control" name="intercessoryPrayer" autocomplete="" autofocus="">{{@$bibleData->intercessoryPrayer}}
             </textarea> 
         </div>
      <span class="material-input"></span>

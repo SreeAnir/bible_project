@@ -129,22 +129,66 @@ class FileController extends Controller {
     
                 if($data->count()){
                     foreach ($data as $key => $value) {
-                      $value->dataId= $value->dataid ;
+                      $value->dataId=(int) $value->dataid ;
                   if($value->dataId!=""){
-    
-                  DB::insert(
-                'insert into bibledata_'.$lang.'(`dataId`, `date`, `ribbonColor`, `weekDescription`, `psalter`, `saintOfTheDay`, `significanceOfTheDay`, `firstReadingReference`, `firstReadingTitle`, `firstReadingText`, `psalmReference`, `psalmText`, `psalmResponse`, `secondReadingReference`, `secondReadingTitle`, `secondReadingText`, `gospelReference`, `gospelTitle`, `gospelText`, `reflectionText`, `readText`, `reflectText`, `prayText`, `actText`) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-                on duplicate key update 
-                 `dataId`=values(`dataId`), `date`=values(`date`), `ribbonColor`=values(`ribbonColor`), `weekDescription`=values(`weekDescription`), `psalter`=values(`psalter`), `saintOfTheDay`=values(`saintOfTheDay`),`significanceOfTheDay`= values(`significanceOfTheDay`),`firstReadingReference`=values(`firstReadingReference`),`firstReadingTitle`=values(`firstReadingTitle`),`psalmReference`=values(`psalmReference`),
-                 `psalmText`=values(`psalmText`),`psalmResponse`=values(`psalmResponse`),`secondReadingReference`=values(`secondReadingReference`),`secondReadingTitle`=values(`secondReadingTitle`),`gospelReference`=values(`gospelReference`),`gospelTitle`=values(`gospelTitle`),`gospelText`=values(`gospelText`),`reflectionText`=values(`reflectionText`),
-                 `readText`=values(`readText`),
-                 `reflectText`=values(`reflectText`),`prayText`=values(`prayText`),`actText`=values(`actText`)',
-                array($value->dataId, $value->date, $value->ribbonColor, $value->weekDescription,$value->psalter,$value->saintOfTheDay,
+                  
+                    if(!is_string($value->date)){
+                   $value->date= $value->date->format('Y-m-d') ;
+                    }
+
+                    $value->ribbonColor=$value->ribboncolor;
+                    $value->weekDescription=$value->weekdescription;
+                    $value->saintOfTheDay=$value->saintoftheday;
+                    $value->significanceOfTheDay=$value->significanceoftheday;
+                    $value->firstReadingReference=$value->firstreadingreference;
+                    $value->firstReadingTitle=$value->firstreadingtitle;
+                    $value->firstReadingText=$value->firstreadingtext;
+                    $value->psalmReference=$value->psalmreference;
+                    $value->psalmText=$value->psalmtext;
+                    $value->psalmRespons=$value->psalmresponse;
+                    $value->secondReadingReference=$value->secondreadingreference;
+                    $value->secondReadingTitle=$value->secondreadingtitle; 
+                    $value->secondReadingText=$value->secondreadingtext;
+                    $value->gospelReference=$value->gospelreference;
+                    $value->gospeltitle;
+
+                    $value->gospelText=$value->gospeltext;
+                    $value->reflectionText=$value->reflectiontext;
+                    $value->readText=$value->readtext;
+                    $value->reflectText=$value->reflecttext;
+                    $value->prayText=$value->praytext ;
+                    $value->actText  =$value->acttext ;
+                    $value->dailyQuote= $value->dailyquote;  
+                    $value->intercessoryPrayer =$value->intercessoryprayer;
+
+
+                $inser_array= array($value->dataId, $value->date, $value->ribbonColor, $value->weekDescription,$value->psalter,$value->saintOfTheDay,
                     $value->significanceOfTheDay, $value->firstReadingReference, $value->firstReadingTitle, $value->firstReadingText,$value->psalmReference,$value->psalmText,
                 $value->psalmResponse, $value->secondReadingReference, $value->secondReadingTitle, $value->secondReadingText,$value->gospelReference,$value->gospelTitle,
                 $value->gospelText,$value->reflectionText,$value->readText ,
-                $value->reflectText,$value->prayText,$value->actText  )
+                $value->reflectText,$value->prayText,$value->actText  , $value->dailyQuote  , $value->intercessoryPrayer    ) ;
+//                  echo   " INSERT INTO `tableName` (`dataId`, `date`, `ribbonColor`, `weekDescription`, `psalter`, `saintOfTheDay`, `significanceOfTheDay`, `firstReadingReference`, `firstReadingTitle`, `firstReadingText`, `psalmReference`, `psalmText`, `psalmResponse`, `secondReadingReference`, `secondReadingTitle`, `secondReadingText`, `gospelReference`, `gospelTitle`, `gospelText`, `reflectionText`, `readText`, `reflectText`, `prayText`, `actText`,`dailyQuote`,`intercessoryPrayer`) VALUES (
+//                     $value->dataId, $value->date, $value->ribbonColor, $value->weekDescription,$value->psalter,$value->saintOfTheDay,
+//                     $value->significanceOfTheDay, $value->firstReadingReference, $value->firstReadingTitle, $value->firstReadingText,$value->psalmReference,$value->psalmText,
+//                 $value->psalmResponse, $value->secondReadingReference, $value->secondReadingTitle, $value->secondReadingText,$value->gospelReference,$value->gospelTitle,
+//                 $value->gospelText,$value->reflectionText,$value->readText ,
+//                 $value->reflectText,$value->prayText,$value->actText  , $value->dailyQuote  , $value->intercessoryPrayer)
+// ON DUPLICATE KEY UPDATE  `dataId`=values(`dataId`), `date`=values(`date`), `ribbonColor`=values(`ribbonColor`), `weekDescription`=values(`weekDescription`), `psalter`=values(`psalter`), `saintOfTheDay`=values(`saintOfTheDay`),`significanceOfTheDay`= values(`significanceOfTheDay`),`firstReadingReference`=values(`firstReadingReference`),`firstReadingTitle`=values(`firstReadingTitle`),`firstReadingText`=values(`firstReadingText`),`psalmReference`=values(`psalmReference`),
+//                  `psalmText`=values(`psalmText`),`psalmResponse`=values(`psalmResponse`),`secondReadingReference`=values(`secondReadingReference`),`secondReadingTitle`=values(`secondReadingTitle`),`secondReadingText`=values(`secondReadingText`),`gospelReference`=values(`gospelReference`),`gospelTitle`=values(`gospelTitle`),`gospelText`=values(`gospelText`),`reflectionText`=values(`reflectionText`),
+//                  `readText`=values(`readText`),
+//                  `reflectText`=values(`reflectText`),`prayText`=values(`prayText`),`actText`=values(`actText`),`dailyQuote`=values(`dailyQuote`),`intercessoryPrayer`=values(`intercessoryPrayer`)";
+                   
+                // $inser_array=implode('","', $inser_array) ;
+                  DB::insert(
+                'insert into bibledata_'.$lang.'(`dataId`, `date`, `ribbonColor`, `weekDescription`, `psalter`, `saintOfTheDay`, `significanceOfTheDay`, `firstReadingReference`, `firstReadingTitle`, `firstReadingText`, `psalmReference`, `psalmText`, `psalmResponse`, `secondReadingReference`, `secondReadingTitle`, `secondReadingText`, `gospelReference`, `gospelTitle`, `gospelText`, `reflectionText`, `readText`, `reflectText`, `prayText`, `actText`,`dailyQuote`,`intercessoryPrayer`) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                on duplicate key update 
+                 `dataId`=values(`dataId`), `date`=values(`date`), `ribbonColor`=values(`ribbonColor`), `weekDescription`=values(`weekDescription`), `psalter`=values(`psalter`), `saintOfTheDay`=values(`saintOfTheDay`),`significanceOfTheDay`= values(`significanceOfTheDay`),`firstReadingReference`=values(`firstReadingReference`),`firstReadingTitle`=values(`firstReadingTitle`),`firstReadingText`=values(`firstReadingText`),`psalmReference`=values(`psalmReference`),
+                 `psalmText`=values(`psalmText`),`psalmResponse`=values(`psalmResponse`),`secondReadingReference`=values(`secondReadingReference`),`secondReadingTitle`=values(`secondReadingTitle`),`secondReadingText`=values(`secondReadingText`),`gospelReference`=values(`gospelReference`),`gospelTitle`=values(`gospelTitle`),`gospelText`=values(`gospelText`),`reflectionText`=values(`reflectionText`),
+                 `readText`=values(`readText`),
+                 `reflectText`=values(`reflectText`),`prayText`=values(`prayText`),`actText`=values(`actText`),`dailyQuote`=values(`dailyQuote`),`intercessoryPrayer`=values(`intercessoryPrayer`)',
+               $inser_array
                 );
+                 
                 $last_id =$value->dataId;
                     }
                   }          
