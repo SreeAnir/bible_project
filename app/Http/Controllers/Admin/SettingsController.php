@@ -103,6 +103,13 @@ class SettingsController extends Controller
             
             if( $type=='new'){
               $array_message.="Language Added.";
+
+              
+            $new_field= \DB::statement('ALTER TABLE `prayertype` ADD  `name_'.$request->ShortName.'` VARCHAR(255)   NOT NULL');
+             $new_field= \DB::statement('UPDATE `prayertype` SET `name_'.$request->ShortName.'` = `name`');
+
+
+
             $table_prayer= \DB::statement('CREATE TABLE prayers_'.$request->ShortName.' LIKE prayers_en');
             if( $table_prayer){
             \DB::statement('INSERT prayers_'.$request->ShortName.' SELECT * FROM prayers_en');
@@ -120,7 +127,8 @@ class SettingsController extends Controller
             }else{
               $array_message.="Language Updated.";
             }
-            return redirect()->route('creat_user');
+             return redirect('admin/manage-users');
+            
 
           }
 

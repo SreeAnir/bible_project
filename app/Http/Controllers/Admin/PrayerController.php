@@ -40,9 +40,9 @@ class PrayerController extends Controller
    public function savePrayer(Request $request){
     $rules = [
           'idprayers'    => 'sometimes|nullable',
-          'prayer' => ['required', 'string', 'max:255'],
-          'title' => ['required', 'string', 'max:255'],
-          'subtitle' => ['required', 'string', 'max:255'],
+          'prayer' => ['required', 'string', 'max:45'],
+          'title' => ['required', 'string', 'max:1000'],
+          'subtitle' => ['required', 'string', 'max:1000'],
           'text' => ['required', 'string'],
           'prayer_audio' =>['sometimes'],
       ];

@@ -72,28 +72,62 @@
     var datechosen=$('#date-chosen').val();
      datechosen = new Date(datechosen);
      console.log("datechosen.getDay()",datechosen.getDay());
+     if($('#solemnityDate').val()){
+        var ret=true;
+        var txt='';
+        if($.trim($('#psalmResponse').val())==""){
+          txt+=("Responsorial Psalm,");
+          ret=false ;
+        }
+         if($.trim($('#intercessoryPrayer').val())==""){
+          txt+=("Intercessory Prayers / Prayer of the Faithful ,");
+         ret=false ;
+        }     
+
+        if($.trim($('#secondReadingReference').val())==""){
+          txt+=("Second Reading Reference,");
+         ret=false ;
+        }
+        if($.trim($('#secondReadingTitle').val())==""){
+          txt+=("Second Reading Title,");
+          ret=false ;
+        }
+         if($.trim($('#secondReadingText').val())==""){
+         txt+=("Second Reading Text , ");
+          ret=false ;
+        }
+        
+        if(ret ==false){
+          txt+=(" required for solemnity date");
+          alert(txt);
+          return false;
+        }
+
+      return true;
+     }
      if(datechosen.getDay() === 0){ 
       if($('#psalmResponse').val()==""){
         alert("Responsorial Psalm is required for Sunday");
         return false;
       }
-       if($('#intercessoryPrayer').val()==""){
+       if( $.trim($('#intercessoryPrayer').val())==""){
         alert("Intercessory Prayers / Prayer of the Faithful required for Sunday");
         return false;
       }     
 
-      if($('#secondReadingReference').val()==""){
+      if($.trim($('#secondReadingReference').val())==""){
         alert("Second Reading Reference is required for Sunday");
         return false;
       }
-      if($('#secondReadingTitle').val()==""){
+      if($.trim($('#secondReadingTitle').val())==""){
         alert("Second Reading Title is required for Sunday");
         return false;
       }
-       if($('#secondReadingText').val()==""){
+       if($.trim($('#secondReadingText').val())==""){
         alert("Second Reading Text is required for Sunday");
         return false;
       }
+       
       return true;
               //sunday
       }

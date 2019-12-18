@@ -1,3 +1,4 @@
+<input type="hidden" id="solemnityDate" value="{{@$solemnityDate}}">
 <form id="formBibleData" method="POST" onsubmit="return checkRequired()">
      <div class="alert alert-danger validation-div" role="alert">
     Please enter the fields

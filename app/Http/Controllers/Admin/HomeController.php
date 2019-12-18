@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use File;
 // use DB;
 use App\Bibledata;
+use App\solemnityDates;
 use Session;
 
 
@@ -159,8 +160,9 @@ class HomeController extends Controller
         $data=array(); 
         $date=$request->date;
         $bibleData = Bibledata::where('date' ,$date)->first();
+        $sdate = solemnityDates::where('date' ,$date)->count();
         $data['bibleData'] = $bibleData ; 
-        $view=view('admin.manage.load-date-content',['bibleData' => $bibleData]);
+        $view=view('admin.manage.load-date-content',['bibleData' => $bibleData ,'solemnityDate' => $sdate]);
         $view=$view->render();
         echo json_encode(['status'=> 1,'message'=>$view]); 
     }
