@@ -11,7 +11,9 @@ use Config;
 
 class Prayer extends Model
 {
-
+    const ACTIVE = 1;
+    const DELETED = 2;
+    const INACTIVE = 0;
     protected $table = 'prayers_en';
     protected $primaryKey = 'idprayers';
     protected $fillable = [

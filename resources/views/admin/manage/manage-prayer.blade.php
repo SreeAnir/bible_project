@@ -106,6 +106,11 @@
         $('#prayer_excel').on('change',function(){
           $('.save-file').show(); 
         }) ;
+        
+        $('.delete-icon').bind('click',function(){
+        alert();
+        return false;
+       });
        $('.toggleForm').bind('click',function(){
         togDiv();
        });

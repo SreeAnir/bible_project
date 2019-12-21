@@ -163,7 +163,7 @@ class SettingsController extends Controller
     public function messageDataSave(Request $request){
         try{
            $rules = [
-          'message'    => ['required', 'string'],
+          'text'    => ['required', 'string'],
       ];
 
       $validator = Validator::make($request->all(), $rules);
@@ -177,7 +177,7 @@ class SettingsController extends Controller
           } else{
           $Msg =new AppMessage;
           }
-          $Msg->message=$request->message;
+          $Msg->text=$request->text;
            
           $save=$Msg->save();
          

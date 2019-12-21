@@ -52,7 +52,8 @@ class ApiController extends Controller
         }
     }
      public function getAllBibledata(){
-        $bible = Bibledata::where('date', 'like', '%'.date("Y").'%')->get();
+        // $bible = Bibledata::where('date', 'like', '%'.date("Y").'%')->get();
+      $bible = Bibledata::get();  
         if(sizeof($bible)>0){
             return response(['status'=>1,'message'=>'Data Found', 'data'=>$bible], $this->successStatus);
         }else{

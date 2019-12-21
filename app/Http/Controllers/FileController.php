@@ -50,6 +50,19 @@ class FileController extends Controller {
             });
         })->download($type);
     }  
+      public function calFill($yr='2020'){
+        $date=array();
+          $lang= Auth::user()->lang['ShortName'] ;
+        for($i=0;$i<=365;$i++){ 
+        $originalDate = "01/01/".$yr;
+        // array_push($date , date('Y-m-d',strtotime($originalDate . "+".$i." day"))) ;
+        $date = date('Y-m-d',strtotime($originalDate . "+".$i." day"));
+       // mysqli_query($db, "INSERT INTO bibledata_fggfh (date)VALUES('$date')");
+                 DB::insert('INSERT INTO  bibledata_'.$lang.' (`date`) values(?) on duplicate key update `date` =values(`date`) ',array( $date));
+
+        }
+
+    }
     public function importExcelFilePrayer(Request $request){
          $lang= Auth::user()->lang['ShortName'] ;
         if($request->hasFile('prayer_excel')){

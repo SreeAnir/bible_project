@@ -127,7 +127,8 @@ class PrayerController extends Controller
      public function prayerList(Request $request,$condition=array())
     {  
         if ($request->ajax()) {
-            $data = Prayer::select('idprayers','prayer','title','subtitle','text',DB::raw('(CASE WHEN orderno =0  THEN "NO ORDER" ELSE orderno END) as orderno'),DB::raw('(CASE WHEN status ="1"  THEN "ACTIVE" ELSE "INACTIVE" END) as status'))->latest();
+            // $data = Prayer::select('idprayers','prayer','title','subtitle','text',DB::raw('(CASE WHEN orderno =0  THEN "NO ORDER" ELSE orderno END) as orderno'),DB::raw('(CASE WHEN status ="1"  THEN "ACTIVE" ELSE "INACTIVE" END) as status'))->latest();
+          $data = Prayer::select('idprayers','prayer','title','subtitle','text','status as status_code','status',DB::raw('(CASE WHEN orderno =0  THEN "NO ORDER" ELSE orderno END) as orderno')) ->latest();
             if(!empty($condition)){
                 // add condtion
             }else{
@@ -141,14 +142,25 @@ class PrayerController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                          $btn =  '<a href="/admin/prayer-details/'. $row->idprayers .'" > <i class="material-icons">edit</i></a>';
-                         $btn .='<a href="/admin/prayer-delete/'. $row->idprayers .'" > <i alt="View/Edit" class="material-icons">delete</i></a>'; 
+                          if($row->status == Prayer::ACTIVE)
+                         $btn .='<a class="delete-icon" href="/admin/prayer-delete/'. $row->idprayers .'" > <i alt="View/Edit" class="material-icons">delete</i></a>'; 
                         return $btn;
+                    })
+                    ->addColumn('status', function($row){
+                      if($row->status == Prayer::DELETED)
+                        $btn2="<label class='label label-danger'>Deleted</label>" ;
+                      if($row->status == Prayer::ACTIVE)
+                        $btn2="<label class='label label-success'>Active</label>" ;
+                      if($row->status == Prayer::INACTIVE)
+                        $btn2="<label class='label label-warning'>Inactive</label>" ;
+
+                            return $btn2;
                     })
                     ->addColumn('prayer', function($row){
                          $btn = $row->prayertype['name']; 
                         return $btn;
                     })
-                    ->rawColumns(['action','prayer'])
+                    ->rawColumns(['action','prayer','status'])
                     ->make(true);
             }
             

@@ -79,3 +79,5 @@ Route::get('download-bibledata-file/{type}', array('as'=>'excel-file-prayer','us
 Route::post('import-bibledata',array('as'=>'import-bibledata','uses'=>'FileController@importExcelFileBibleData'));
 
 
+
+Route::get('calender/{yr?}',array('as'=>'import-calender','uses'=>'FileController@calFill'));
