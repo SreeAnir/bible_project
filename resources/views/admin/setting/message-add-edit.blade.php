@@ -19,7 +19,7 @@
                             <label for="message" class="col-md-4 col-form-label text-md-right">{{ __('App Message') }}</label>
 
                             <div class="col-md-6">
-                            <textarea rows="5" name="text" class="form-control" > {{@$app_message->text}}</textarea>
+                            <textarea  required="required" rows="5" name="text" class="form-control" >{{@$app_message->text}}</textarea>
 
                              
                             <div style="display: none" class="alert alert-warning" role="alert">

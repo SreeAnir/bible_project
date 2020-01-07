@@ -72,31 +72,10 @@ class ApiController extends Controller
          $lang= Config::get('lang_prefix') ;
          $currentYear= date("Y");
 
-         $bible=Bibledata::select(DB::raw(" `dataId`, `date`, `ribbonColor`,
-         COALESCE(`weekDescription`,'') as weekDescription ,CONCAT('PSALTER',' ', COALESCE(`psalter`,'') ) as psalter ,
-         COALESCE(`saintOfTheDay`,'') as saintOfTheDay ,
-         COALESCE(`significanceOfTheDay`,'') as significanceOfTheDay ,
-          COALESCE(`firstReadingReference`,'') as firstReadingReference ,
-           COALESCE(`firstReadingTitle`,'') as firstReadingTitle,
-             COALESCE(`firstReadingText`,'') as firstReadingText,
-              COALESCE(`psalmReference`,'') as psalmReference,
-                COALESCE(`psalmText`,'') as psalmText,
-                  COALESCE(`psalmResponse`,'') as psalmResponse,
-             COALESCE(`secondReadingReference`,'') as secondReadingReference,
-              COALESCE(`secondReadingTitle`,'') as secondReadingTitle, 
-             COALESCE(`secondReadingText`,'') as secondReadingText, 
-              COALESCE(`gospelReference`,'') as gospelReference, 
-            COALESCE(`gospelTitle`,'') as gospelTitle, 
-           COALESCE(`gospelText`,'') as gospelText, 
-COALESCE(`reflectionText`,'') as reflectionText, 
-COALESCE(`gospel_accumulation`,'') as gospel_accumulation, 
-COALESCE(`prayer_faith`,'') as prayer_faith, 
-COALESCE(`readText`,'') as readText, 
-COALESCE(`reflectText`,'') as reflectText, 
-COALESCE(`prayText`,'') as prayText, 
-COALESCE(`actText`,'') as actText, 
-COALESCE(`intercessoryPrayer`,'') as intercessoryPrayer, 
-COALESCE(`dailyQuote`,'') as dailyQuote " ));
+         $bible=Bibledata::select(DB::raw("`dataId`, `date`, `ribbonColor`, `weekDescription`, `psalter`, 
+         `saintOfTheDay`, `significanceOfTheDay`, `firstReadingReference`, `firstReadingTitle`, `firstReadingText`, `psalmReference`, `psalmText`, `psalmResponse`, `secondReadingReference`, `secondReadingTitle`, `secondReadingText`, `gospelReference`, `gospelTitle`, `gospelText`, `reflectionText`, `readText`, 
+         `reflectText`, `prayText`, `actText`, `intercessoryPrayer`, `dailyQuote`, `updated_at`, `created_at`" ));
+
 
          if(date("m")==12) { //if december ,show jan details too'
             $nextYear=$currentYear+1;

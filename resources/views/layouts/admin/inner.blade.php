@@ -106,6 +106,12 @@
                         <p>Manage Patron</p>
                     </a>
                 </li>
+                <li @if(request()->segment(2)=="splash")class="active" @endif>
+                    <a href="/admin/splash">
+                        <i class="material-icons">person_pin</i>
+                        <p>Manage Splash</p>
+                    </a>
+                </li>
                  <li @if(request()->segment(2)=="app-message")class="active" @endif>
                     <a href="/admin/app-message">
                         <i class="material-icons">message</i>

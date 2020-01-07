@@ -1,7 +1,7 @@
 
 @extends('layouts.admin.inner')
 @section('content')
-
+    
         <div class="content"> 
             <div class="container-fluid">
                 <div class="row">
@@ -50,11 +50,10 @@
                       <label class="label-control">Datetime </label>
                       <input value='{{ date("Y-m-d") }}' id="date-chosen" type="text" class="form-control datetimepicker" />
                       </div>
-
                        <div class="form-group col-md-2">
                         <a style="display: none;" class="material-icons loader-class">autorenew</a>
-                       <a  class="edit-data material-icons">edit</a> 
-                       <a style="display: none;" class="save-data material-icons">save</a> 
+                       <!-- <a  class="edit-data material-icons">edit</a>  -->
+                       <!-- <a style="display: none;" class="save-data material-icons">save</a>  -->
                       </div>
                       <div id="bible-date-content" class="card-body col-md-12"> 
                       <!-- content comes here -->
@@ -72,26 +71,34 @@
     var datechosen=$('#date-chosen').val();
      datechosen = new Date(datechosen);
      console.log("datechosen.getDay()",datechosen.getDay());
-     if($('#solemnityDate').val()){
+     if(parseInt ($('#solemnityDate').val() )   ){
         var ret=true;
         var txt='';
-        if($.trim($('#psalmResponse').val())==""){
-          txt+=("Responsorial Psalm,");
+        if($.trim($('#prayer_faith').val())==""){
+          txt+=("Prayer of the Faith,");
           ret=false ;
         }
-         if($.trim($('#intercessoryPrayer').val())==""){
-          txt+=("Intercessory Prayers / Prayer of the Faithful ,");
-         ret=false ;
-        }     
+        if($.trim($('#gospel_accumulation').val())==""){
+          txt+=("Gospel Acclamation,");
+          ret=false ;
+        }
+        // if($.trim($('#psalmResponse').val())==""){
+        //   txt+=("Responsorial Psalm,");
+        //   ret=false ;
+        // }
+        //  if($.trim($('#intercessoryPrayer').val())==""){
+        //   txt+=("Intercessory Prayers / Prayer of the Faithful ,");
+        //  ret=false ;
+        // }     
 
         if($.trim($('#secondReadingReference').val())==""){
           txt+=("Second Reading Reference,");
          ret=false ;
         }
-        if($.trim($('#secondReadingTitle').val())==""){
-          txt+=("Second Reading Title,");
-          ret=false ;
-        }
+        // if($.trim($('#secondReadingTitle').val())==""){
+        //   txt+=("Second Reading Title,");
+        //   ret=false ;
+        // }
          if($.trim($('#secondReadingText').val())==""){
          txt+=("Second Reading Text , ");
           ret=false ;
@@ -106,37 +113,52 @@
       return true;
      }
      if(datechosen.getDay() === 0){ 
-      if($('#psalmResponse').val()==""){
-        alert("Responsorial Psalm is required for Sunday");
-        return false;
-      }
-       if( $.trim($('#intercessoryPrayer').val())==""){
-        alert("Intercessory Prayers / Prayer of the Faithful required for Sunday");
-        return false;
-      }     
+       let txt_data=new Array();
+       let val_ret=true;
+
+      // if($('#psalmResponse').val()==""){
+      //   txt_data.push("Responsorial Psalm");
+      //   val_ret=false;
+      // }
+      //  if( $.trim($('#intercessoryPrayer').val())==""){
+      //   alert("Intercessory Prayers / Prayer of the Faithful required for Sunday");
+      //   return false;
+      // }     
 
       if($.trim($('#secondReadingReference').val())==""){
-        alert("Second Reading Reference is required for Sunday");
-        return false;
+        txt_data.push( "Second Reading Reference");
+        val_ret=false;
       }
-      if($.trim($('#secondReadingTitle').val())==""){
-        alert("Second Reading Title is required for Sunday");
-        return false;
-      }
+      
+      // if($.trim($('#secondReadingTitle').val())==""){
+      //   alert("Second Reading Title is required for Sunday");
+      //   return false;
+      // }
        if($.trim($('#secondReadingText').val())==""){
-        alert("Second Reading Text is required for Sunday");
-        return false;
+        txt_data.push("Second Reading Text");
+         val_ret=false;
       }
-       
-      return true;
+      if($.trim($('#prayer_faith').val())==""){
+          txt_data.push( "Prayer of the Faith");
+           val_ret=false;
+        }
+      if($.trim($('#gospel_accumulation').val())==""){
+        txt_data.push("Gospel Acclamation");
+         val_ret=false;
+      }
+      if(val_ret==false){
+        txt_data=txt_data.join(',') ;
+        alert("Enter "+txt_data+' For Sunday') ;
+      }
+       return val_ret;
               //sunday
       }
   return true;
   }
   function loadDateData(){
-  $('#edit-form input').prop('readonly', true);  
-  $('.save-data').hide();
-  $('.edit-data').fadeIn();
+  // $('#edit-form input').prop('readonly', true);  
+  // $('.save-data').hide();
+  // $('.edit-data').fadeIn();
   $('.loader-class').show();
   var datechosen=$('#date-chosen').val();
   if(datechosen==''){
@@ -161,7 +183,7 @@
                      ///loadData();
                  }
                   $('.loader-class').hide();
-                  $('#edit-form input').prop('readonly', true);
+                  // $('#edit-form input').prop('readonly', true);
                }
             });
 
@@ -230,7 +252,7 @@
                  $('.show-message').show();
                     $('#ribbonColor').focus();
 
-                  $('#edit-form input').prop('readonly', true);
+                  // $('#edit-form input').prop('readonly', true);
 
                }
             });
@@ -245,11 +267,11 @@
       loadDateData();
     });
     //edit btn click
-    $('.edit-data').on('click',function(){
-     $('#edit-form input').prop('readonly', false);
-      $('.save-data').fadeIn(); 
-      $('.edit-data').hide(); 
-    });
+    // $('.edit-data').on('click',function(){
+    //  $('#edit-form input').prop('readonly', false);
+    //   $('.save-data').fadeIn(); 
+    //   $('.edit-data').hide(); 
+    // });
     //eof eit btn click
 
     //save btn click
@@ -259,10 +281,14 @@
     });
 
     //eof save btn click
+    // var todayDate = new Date(2018, 11, 24).getDate();
+    var endD= new Date(2018, 11, 24);
+    //new Date(new Date().setDate(todayDate - 15));
 
     $('#date-chosen').datepicker({  
-
-       format: 'yyyy-mm-dd'
+       format: 'yyyy-mm-dd',
+       startDate : endD,
+       autoclose: true,
 
      }); 
      $('.alert').not('.global-infor').hide();

@@ -22,8 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // admin Guest Route Start
 Route::get('/admin/login', 'Admin\LoginController@index')   ; 
 Route::get('/admin/logout', 'Admin\LoginController@logout')  ;
-Route::post('/admin/auth', 'Admin\LoginController@checkLogin')    
-    ->name('admin_login');
+Route::post('/admin/auth', 'Admin\LoginController@checkLogin')->name('admin_login');
 
  // Eof admin Guest Route   
 Route::get('/admin/dashboard', 'Admin\HomeController@dashboard')    
@@ -48,6 +47,8 @@ Route::get('admin/manage-users','Admin\HomeController@ListUser');
 Route::get('users', ['uses'=>'UserController@index', 'as'=>'users.index']);
 Route::get('admin/user-details/{id}', ['uses'=>'UserController@userDetails', 'as'=>'admin.user-details']);
 Route::get('admin/user-delete/{id}', 'UserController@userDelete')->name('user-delete'); 
+Route::get('admin/user-activate/{id}', 'UserController@userActivate')->name('user-activate'); 
+
 
 
 Route::get('/admin/manage-dates', 'Admin\HomeController@manageDate')   ; 
@@ -62,6 +63,9 @@ Route::get('/admin/edit-language/{id}', 'Admin\SettingsController@addLanguage') 
 
 Route::get('/admin/patron', 'Admin\SettingsController@patronData')   ; 
 Route::post('/admin/save-patron', 'Admin\SettingsController@patronDataSave')->name('save-patron')   ; 
+
+Route::get('/admin/splash', 'Admin\SettingsController@splashData')   ; 
+Route::post('/admin/save-splash', 'Admin\SettingsController@splashDataSave')->name('save-splash')   ; 
 
 Route::get('/admin/app-message', 'Admin\SettingsController@appMessage')   ; 
 Route::post('/admin/save-message', 'Admin\SettingsController@messageDataSave')->name('save-message')   ; 

@@ -29,10 +29,21 @@ class Prayer extends Model
         if(Auth::user()){
         $lang= Auth::user()->lang['ShortName'] ;
         }
-        parent::__construct();
-        if($lang!='en'){
-        $this->setTable('prayers_'.$lang);
+        else{
+          
+            if(Config::get('lang_prefix') !=""){
+               $lang= Config::get('lang_prefix') ; 
+                 //test 
+                  //   echo Config::get('lang_prefix');
+                   //  die() ;
+               $this->setTable('prayers_'.$lang);
+            }
         }
+        $this->setTable('prayers_'.$lang);
+        parent::__construct();
+        // if($lang!='en'){
+        
+        // }
     }
     public function prayertype() {
     return $this->belongsTo('App\Prayertype','prayer','id');

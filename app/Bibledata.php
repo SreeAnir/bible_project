@@ -44,6 +44,10 @@ class Bibledata extends Model
         $lang='en';
         if(Auth::user()){
         $lang= Auth::user()->lang['ShortName'] ;
+        }else{
+            if(Config::get('lang_prefix') !=""){
+               $lang= Config::get('lang_prefix') ; 
+            }
         }
         parent::__construct();
         $this->setTable('bibledata_'.$lang);

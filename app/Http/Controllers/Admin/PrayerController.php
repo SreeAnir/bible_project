@@ -128,14 +128,15 @@ class PrayerController extends Controller
     {  
         if ($request->ajax()) {
             // $data = Prayer::select('idprayers','prayer','title','subtitle','text',DB::raw('(CASE WHEN orderno =0  THEN "NO ORDER" ELSE orderno END) as orderno'),DB::raw('(CASE WHEN status ="1"  THEN "ACTIVE" ELSE "INACTIVE" END) as status'))->latest();
-          $data = Prayer::select('idprayers','prayer','title','subtitle','text','status as status_code','status',DB::raw('(CASE WHEN orderno =0  THEN "NO ORDER" ELSE orderno END) as orderno')) ->latest();
+          $data = Prayer::select('idprayers','prayer','title','subtitle','text','status as status_code','status',
+          DB::raw('(CASE WHEN orderno =0  THEN "NO ORDER" ELSE orderno END) as orderno')) ;
             if(!empty($condition)){
                 // add condtion
             }else{
                 $data =$data->where('status' ,'1');
             }
 
-            $data =$data->get();
+            $data =$data->orderBy('idprayers', 'ASC')->get();
 
             if(!empty($data)){
                 return Datatables::of($data)
@@ -143,7 +144,7 @@ class PrayerController extends Controller
                     ->addColumn('action', function($row){
                          $btn =  '<a href="/admin/prayer-details/'. $row->idprayers .'" > <i class="material-icons">edit</i></a>';
                           if($row->status == Prayer::ACTIVE)
-                         $btn .='<a class="delete-icon" href="/admin/prayer-delete/'. $row->idprayers .'" > <i alt="View/Edit" class="material-icons">delete</i></a>'; 
+                         $btn .='<a class="delete-icon" data-attr="/admin/prayer-delete/'. $row->idprayers .'" ><i alt="View/Edit" class="material-icons">delete</i></a>'; 
                         return $btn;
                     })
                     ->addColumn('status', function($row){

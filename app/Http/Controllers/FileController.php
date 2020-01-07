@@ -149,30 +149,33 @@ class FileController extends Controller {
                    $value->date= $value->date->format('Y-m-d') ;
                     }
 
-                    $value->ribbonColor=$value->ribboncolor;
-                    $value->weekDescription=$value->weekdescription;
-                    $value->saintOfTheDay=$value->saintoftheday;
-                    $value->significanceOfTheDay=$value->significanceoftheday;
-                    $value->firstReadingReference=$value->firstreadingreference;
-                    $value->firstReadingTitle=$value->firstreadingtitle;
-                    $value->firstReadingText=$value->firstreadingtext;
-                    $value->psalmReference=$value->psalmreference;
-                    $value->psalmText=$value->psalmtext;
-                    $value->psalmRespons=$value->psalmresponse;
-                    $value->secondReadingReference=$value->secondreadingreference;
-                    $value->secondReadingTitle=$value->secondreadingtitle; 
-                    $value->secondReadingText=$value->secondreadingtext;
-                    $value->gospelReference=$value->gospelreference;
-                    $value->gospeltitle;
+                    $value->ribbonColor=strtolower( trim($value->ribboncolor));
+                    $value->weekDescription=trim( $value->weekdescription);
+                    $value->saintOfTheDay=trim( $value->saintoftheday);
+                    $value->significanceOfTheDay=trim( $value->significanceoftheday);
+                    $value->firstReadingReference=trim( $value->firstreadingreference);
+                    $value->firstReadingTitle=trim( $value->firstreadingtitle);
+                    $value->firstReadingText=trim( $value->firstreadingtext);
+                    $value->psalmReference=trim( $value->psalmreference);
+                    $value->psalmText=trim( $value->psalmtext);
+                    $value->psalmResponse=trim( $value->psalmresponse);
+                    $value->secondReadingReference=trim( $value->secondreadingreference);
+                    $value->secondReadingTitle=trim( $value->secondreadingtitle); 
+                    $value->secondReadingText=trim( $value->secondreadingtext);
+                    $value->gospelReference=trim( $value->gospelreference);
+                    $value->gospelTitle=trim( $value->gospeltitle);
+                    $value->prayer_faith=trim( $value->prayer_faith);
+                    $value->gospel_accumulation=trim( $value->gospel_accumulation);
+                    $value->gospelTitle=trim( $value->gospeltitle);
 
-                    $value->gospelText=$value->gospeltext;
-                    $value->reflectionText=$value->reflectiontext;
-                    $value->readText=$value->readtext;
-                    $value->reflectText=$value->reflecttext;
-                    $value->prayText=$value->praytext ;
-                    $value->actText  =$value->acttext ;
-                    $value->dailyQuote= $value->dailyquote;  
-                    $value->intercessoryPrayer =$value->intercessoryprayer;
+                    $value->gospelText=trim($value->gospeltext);
+                    $value->reflectionText=trim($value->reflectiontext);
+                    $value->readText=trim($value->readtext);
+                    $value->reflectText=trim($value->reflecttext);
+                    $value->prayText=trim($value->praytext );
+                    $value->actText  =trim($value->acttext) ;
+                    $value->dailyQuote= trim( $value->dailyquote);  
+                    $value->intercessoryPrayer = trim($value->intercessoryprayer);
 
 
                 $inser_array= array($value->dataId, $value->date, $value->ribbonColor, $value->weekDescription,$value->psalter,$value->saintOfTheDay,

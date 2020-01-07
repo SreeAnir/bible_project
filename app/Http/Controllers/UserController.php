@@ -31,10 +31,15 @@ class UserController extends Controller
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-   
+                      if($row->status == User::ACTIVE){
                            $btn =  '<a href="/admin/user-details/'. $row->id .'" > <i class="material-icons">edit</i></a>';
-                         $btn .='<a href="/admin/user-delete/'. $row->id .'" > <i alt="View/Edit" class="material-icons">delete</i></a>';
-     
+                         $btn .='<a onclick="userDeletConfirm(this)" class="delete-icon-user" data-rel="/admin/user-delete/'. $row->id .'" > <i alt="View/Edit" class="1material-icons">delete</i></a>';
+                          } 
+
+                        if( $row->status == User::INACTIVE || $row->status == User::DELETED ){
+                          $btn ='<a href="/admin/user-activate/'. $row->id .'" > <i alt="Activate" class="material-icons">settings_backup_restore</i></a>';
+                        }
+                        
                             return $btn;
                     })
                     ->addColumn('status', function($row){
@@ -53,7 +58,25 @@ class UserController extends Controller
       
         return view('users-');
     }
+    
+    public function userActivate($id=""){   
+      $data=array(); 
+        Session::flash('flash_success', ' Sorry!  Failed to Delete');
 
+      if ($id!='') {
+        $user = User::where('id',$id)->first();
+        $user->status='1';
+        $save=$user->save();
+        if($save){
+          Session::flash('flash_success', 'Activated Successfully');
+
+        }  
+        }
+        return back();
+
+          
+    //  return view('admin.manage.manage-prayer',['details' => $prayer]);
+ }
      public function userDelete($id=""){   
         $data=array(); 
           Session::flash('flash_success', ' Sorry!  Failed to Delete');

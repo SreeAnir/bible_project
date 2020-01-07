@@ -57,7 +57,7 @@
                         
                             </div>
                         </div>
-                         @if($patron->patron_image!="")
+                         @if(@$patron->patron_image!="")
                          <div class="form-group row ">
                            <label for="ShortName" class="col-md-4 col-form-label text-md-right">{{ __('Current Patron Photo') }}</label>
 

@@ -70,7 +70,7 @@ $title="" ;
                             </div>
                         </div>
                         <div class="form-group row form-file-upload form-file-multiple">
-                        <label for="orderno" class="col-md-4 col-form-label text-md-right">{{ __('Audio') }}</label>
+                        <label for="orderno" class="col-md-4 col-form-label text-md-right">{{ __('Audio') }}  ( mp3 files)</label>
                             <input accept="audio/mp3,audio/*;capture=microphone"   id="prayer_audio"  name="prayer_audio"  type="file" multiple="" class="inputFileHidden">
                             <div class="input-group col-md-6">
                                 <input id="prayer_audio_invisible"  type="text" class="form-control inputFileVisible" 

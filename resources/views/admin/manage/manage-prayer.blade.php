@@ -101,16 +101,28 @@
                 x.style.display = "none";
               }
    }
+   function deletePrayer(){
+    $(document).on('click', '.delete-icon' , function() {
+      //code here ....
+        if($(this).attr('data-attr')!=""){
+          var conf_get;
+        var resp = confirm("Delete this Prayer");
+        if (resp == true) {
+          window.location=$(this).attr('data-attr');
+        }  
+        }
+    });
+    
+   }
+
   $( document ).ready(function() {
-         $('.save-file').hide(); 
+    deletePrayer();
+        $('.save-file').hide(); 
         $('#prayer_excel').on('change',function(){
           $('.save-file').show(); 
         }) ;
-        
-        $('.delete-icon').bind('click',function(){
-        alert();
-        return false;
-       });
+          
+       
        $('.toggleForm').bind('click',function(){
         togDiv();
        });

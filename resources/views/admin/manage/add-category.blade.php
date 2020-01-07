@@ -28,6 +28,11 @@
                                 </button>
                                  
                             </div>
+                            @if(@$prayer_type->id !="")
+                            <div class="col-md-4 offset-md-4">
+                                <a class="btn btn-primary" href="/admin/manage-category" > {{ __('Back') }} </a>
+                            </div>
+                            @endif
                         </div>
                     </form>
                 </div>

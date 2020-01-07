@@ -210,12 +210,14 @@ class HomeController extends Controller
             $Bibledata->psalmText = $request->psalmText;
             $Bibledata->psalmResponse = $request->psalmResponse;
             $Bibledata->secondReadingReference = $request->secondReadingReference;
-            $Bibledata->secondReadingTitle = $request->secondReadingReference;
+            $Bibledata->secondReadingTitle = $request->secondReadingTitle;
             $Bibledata->secondReadingText = $request->secondReadingText;
             $Bibledata->gospelReference = $request->gospelReference ;
             $Bibledata->gospelTitle = $request->gospelTitle;
             $Bibledata->gospelText = $request->gospelText;
             $Bibledata->reflectionText = $request->reflectionText;
+            $Bibledata->prayer_faith = $request->prayer_faith;
+            $Bibledata->gospel_accumulation = $request->gospel_accumulation;
             $Bibledata->readText = $request->readText;
             $Bibledata->reflectText = $request->reflectText;
             $Bibledata->prayText = $request->prayText;

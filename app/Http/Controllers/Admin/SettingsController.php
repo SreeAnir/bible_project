@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
      
 use App\User;
@@ -17,6 +18,7 @@ use DB;
 use App\Bibledata;
 use Session;
 use App\Patron;
+use App\Splash;
 use App\AppMessage;
 use App\Language;
 
@@ -105,7 +107,7 @@ class SettingsController extends Controller
               $array_message.="Language Added.";
 
               
-            $new_field= \DB::statement('ALTER TABLE `prayertype` ADD  `name_'.$request->ShortName.'` VARCHAR(255)   NOT NULL');
+            $new_field= \DB::statement('ALTER TABLE `prayertype` ADD  `name_'.$request->ShortName.'` INT(255) NULL DEFAULT NULL AFTER name');
              $new_field= \DB::statement('UPDATE `prayertype` SET `name_'.$request->ShortName.'` = `name`');
 
 
@@ -156,7 +158,11 @@ class SettingsController extends Controller
           return back();
     }
     public function appMessage(){
-       $app_message=AppMessage::first();
+      $lang='en';
+      if(Auth::user()){
+      $lang= Auth::user()->lang['ShortName'] ;
+      }
+       $app_message=AppMessage::where('language',$lang)->first();
         return view('admin.setting.message-add-edit' ,array('app_message' =>$app_message));
     }
     
@@ -177,6 +183,10 @@ class SettingsController extends Controller
           } else{
           $Msg =new AppMessage;
           }
+          if(Auth::user()){
+            $lang= Auth::user()->lang['ShortName'] ;
+          }
+          $Msg->language=$lang;  
           $Msg->text=$request->text;
            
           $save=$Msg->save();
@@ -197,7 +207,11 @@ class SettingsController extends Controller
         }
     }
     public function patronData(){
-      $patron=Patron::first();
+      $lang='en';
+      if(Auth::user()){
+      $lang= Auth::user()->lang['ShortName'] ;
+      }
+      $patron=Patron::where('language', $lang)->first();
         return view('admin.setting.add-edit-patron',array('patron' =>$patron));
     }
     public function patronDataSave(Request $request){
@@ -222,7 +236,12 @@ class SettingsController extends Controller
           $Patron->patron_name=$request->patron_name;
           $Patron->patron_date=$request->patron_date;
           $Patron->patron_text=$request->patron_text;
-          
+          $lang='en';
+          if(Auth::user()){
+          $lang= Auth::user()->lang['ShortName'] ;
+          }
+          $Patron->language=$lang;
+           
           if($request->has('patron_image')){
             $uniqueid=uniqid();
              $file = $request->file('patron_image');
@@ -258,6 +277,74 @@ class SettingsController extends Controller
         }
     }
     
+    public function splashData(){
+      $lang='en';
+      if(Auth::user()){
+      $lang= Auth::user()->lang['ShortName'] ;
+      }
+      $splash=Splash::where('language', $lang)->first();
+        return view('admin.setting.add-edit-splash',array('splash' =>$splash));
+    }
+    public function splashDataSave(Request $request){
+        try{
+           $rules = [
+          'message'    => ['required', 'string'],
+      ];
+
+      $validator = Validator::make($request->all(), $rules);
+      if($validator->fails()){
+           Session::flash('flash_message_splash', $validator->errors()->first());
+            return back();
+      }else{ 
+          if ($request->has('id') && $request->id!="") {
+          $Splash = Splash::where('id',$request->id)->first();
+          } else{
+          $Splash =new Splash;
+          }
+          $Splash->message=$request->message;
+           
+          $lang='en';
+          if(Auth::user()){
+          $lang= Auth::user()->lang['ShortName'] ;
+          }
+          $Splash->language=$lang;
+           
+          if($request->has('image')){
+            $uniqueid=uniqid();
+             $file = $request->file('image');
+            $original_name=$request->file('image')->getClientOriginalName();
+            $size=$request->file('image')->getSize();
+            $extension=$request->file('image')->getClientOriginalExtension();
+            $filename=Carbon::now()->format('Ymd').'_'.$uniqueid.'.'.$extension;
+            //$audiopath=url('/storage/upload/files/audio/'.$filename);
+            $destinationPath='storage/upload/files/image/';
+            // $path=$file->storeAs('public/upload/files/audio/',$filename);die();
+            $file->move($destinationPath,$filename);
+            // $all_audios=$filename;\
+             if(file_exists($destinationPath.$filename)){
+               $Splash->image=$filename;
+             }
+            
+           }
+          $save=$Splash->save();
+         
+          if( $save){
+             Session::flash('flash_message_splash', 'Saved Splash Data');
+          }else{
+            Session::flash('flash_message_splash', 'Saved Splash Data');
+          }
+           return back();
+
+
+      }
+        }catch (Exception $e) {
+           Session::flash('flash_message_splash', $e->getMessage());
+            return back();
+
+        }
+    }
+    
+
     public function loadBibleDateContent(Request $request){
         $data=array(); 
         $date=$request->date;

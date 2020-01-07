@@ -58,9 +58,19 @@
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-  }
      
+  }
+     function userDeletConfirm(itm){
+       var link =$(itm).attr('data-rel');
+        var cnf = confirm("User will be deleted,but you can activate again.Press OK To preceed");
+            if (cnf== true) {
+                window.location=link;  
+            } else {
+               return false;
+            }
+     }
    $( document ).ready(function() {
+       
         setTimeout(function(){
            $(".alertBox").slideUp();
         }, 8000);

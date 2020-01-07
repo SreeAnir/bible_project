@@ -24,3 +24,4 @@ Route::get('get-bible-by-date','Api\ApiController@getBibleByDate');
 
 Route::get('get-app-message','Api\ApiController@getAppMessage');
 Route::get('get-patron','Api\ApiController@getPatronData');
+Route::get('get-splash-data','Api\ApiController@getSplashData');
