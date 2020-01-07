@@ -8,6 +8,9 @@ use App\Prayer;
 use App\Bibledata ;
 use Config;
 use DB;
+
+Use Exception;
+
 class FileController extends Controller {
     public function importExportExcelORCSV(){
         return view('file_import_export');
@@ -152,6 +155,7 @@ class FileController extends Controller {
                     $value->ribbonColor=strtolower( trim($value->ribboncolor));
                     $value->weekDescription=trim( $value->weekdescription);
                     $value->saintOfTheDay=trim( $value->saintoftheday);
+                    $value->saintOfTheDayText=trim( $value->saintofthedaytext);
                     $value->significanceOfTheDay=trim( $value->significanceoftheday);
                     $value->firstReadingReference=trim( $value->firstreadingreference);
                     $value->firstReadingTitle=trim( $value->firstreadingtitle);
@@ -166,7 +170,6 @@ class FileController extends Controller {
                     $value->gospelTitle=trim( $value->gospeltitle);
                     $value->prayer_faith=trim( $value->prayer_faith);
                     $value->gospel_accumulation=trim( $value->gospel_accumulation);
-                    $value->gospelTitle=trim( $value->gospeltitle);
 
                     $value->gospelText=trim($value->gospeltext);
                     $value->reflectionText=trim($value->reflectiontext);
@@ -178,32 +181,27 @@ class FileController extends Controller {
                     $value->intercessoryPrayer = trim($value->intercessoryprayer);
 
 
-                $inser_array= array($value->dataId, $value->date, $value->ribbonColor, $value->weekDescription,$value->psalter,$value->saintOfTheDay,
+                $inser_array= array($value->dataId, $value->date, $value->ribbonColor, $value->weekDescription,$value->psalter,$value->saintOfTheDay,$value->saintOfTheDayText,
                     $value->significanceOfTheDay, $value->firstReadingReference, $value->firstReadingTitle, $value->firstReadingText,$value->psalmReference,$value->psalmText,
                 $value->psalmResponse, $value->secondReadingReference, $value->secondReadingTitle, $value->secondReadingText,$value->gospelReference,$value->gospelTitle,
-                $value->gospelText,$value->reflectionText,$value->readText ,
+                $value->gospelText,$value->reflectionText,$value->gospel_accumulation,$value->prayer_faith , $value->readText ,
                 $value->reflectText,$value->prayText,$value->actText  , $value->dailyQuote  , $value->intercessoryPrayer    ) ;
-//                  echo   " INSERT INTO `tableName` (`dataId`, `date`, `ribbonColor`, `weekDescription`, `psalter`, `saintOfTheDay`, `significanceOfTheDay`, `firstReadingReference`, `firstReadingTitle`, `firstReadingText`, `psalmReference`, `psalmText`, `psalmResponse`, `secondReadingReference`, `secondReadingTitle`, `secondReadingText`, `gospelReference`, `gospelTitle`, `gospelText`, `reflectionText`, `readText`, `reflectText`, `prayText`, `actText`,`dailyQuote`,`intercessoryPrayer`) VALUES (
-//                     $value->dataId, $value->date, $value->ribbonColor, $value->weekDescription,$value->psalter,$value->saintOfTheDay,
-//                     $value->significanceOfTheDay, $value->firstReadingReference, $value->firstReadingTitle, $value->firstReadingText,$value->psalmReference,$value->psalmText,
-//                 $value->psalmResponse, $value->secondReadingReference, $value->secondReadingTitle, $value->secondReadingText,$value->gospelReference,$value->gospelTitle,
-//                 $value->gospelText,$value->reflectionText,$value->readText ,
-//                 $value->reflectText,$value->prayText,$value->actText  , $value->dailyQuote  , $value->intercessoryPrayer)
-// ON DUPLICATE KEY UPDATE  `dataId`=values(`dataId`), `date`=values(`date`), `ribbonColor`=values(`ribbonColor`), `weekDescription`=values(`weekDescription`), `psalter`=values(`psalter`), `saintOfTheDay`=values(`saintOfTheDay`),`significanceOfTheDay`= values(`significanceOfTheDay`),`firstReadingReference`=values(`firstReadingReference`),`firstReadingTitle`=values(`firstReadingTitle`),`firstReadingText`=values(`firstReadingText`),`psalmReference`=values(`psalmReference`),
-//                  `psalmText`=values(`psalmText`),`psalmResponse`=values(`psalmResponse`),`secondReadingReference`=values(`secondReadingReference`),`secondReadingTitle`=values(`secondReadingTitle`),`secondReadingText`=values(`secondReadingText`),`gospelReference`=values(`gospelReference`),`gospelTitle`=values(`gospelTitle`),`gospelText`=values(`gospelText`),`reflectionText`=values(`reflectionText`),
-//                  `readText`=values(`readText`),
-//                  `reflectText`=values(`reflectText`),`prayText`=values(`prayText`),`actText`=values(`actText`),`dailyQuote`=values(`dailyQuote`),`intercessoryPrayer`=values(`intercessoryPrayer`)";
-                   
-                // $inser_array=implode('","', $inser_array) ;
-                  DB::insert(
-                'insert into bibledata_'.$lang.'(`dataId`, `date`, `ribbonColor`, `weekDescription`, `psalter`, `saintOfTheDay`, `significanceOfTheDay`, `firstReadingReference`, `firstReadingTitle`, `firstReadingText`, `psalmReference`, `psalmText`, `psalmResponse`, `secondReadingReference`, `secondReadingTitle`, `secondReadingText`, `gospelReference`, `gospelTitle`, `gospelText`, `reflectionText`, `readText`, `reflectText`, `prayText`, `actText`,`dailyQuote`,`intercessoryPrayer`) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-                on duplicate key update 
-                 `dataId`=values(`dataId`), `date`=values(`date`), `ribbonColor`=values(`ribbonColor`), `weekDescription`=values(`weekDescription`), `psalter`=values(`psalter`), `saintOfTheDay`=values(`saintOfTheDay`),`significanceOfTheDay`= values(`significanceOfTheDay`),`firstReadingReference`=values(`firstReadingReference`),`firstReadingTitle`=values(`firstReadingTitle`),`firstReadingText`=values(`firstReadingText`),`psalmReference`=values(`psalmReference`),
-                 `psalmText`=values(`psalmText`),`psalmResponse`=values(`psalmResponse`),`secondReadingReference`=values(`secondReadingReference`),`secondReadingTitle`=values(`secondReadingTitle`),`secondReadingText`=values(`secondReadingText`),`gospelReference`=values(`gospelReference`),`gospelTitle`=values(`gospelTitle`),`gospelText`=values(`gospelText`),`reflectionText`=values(`reflectionText`),
-                 `readText`=values(`readText`),
-                 `reflectText`=values(`reflectText`),`prayText`=values(`prayText`),`actText`=values(`actText`),`dailyQuote`=values(`dailyQuote`),`intercessoryPrayer`=values(`intercessoryPrayer`)',
-               $inser_array
-                );
+ 
+                DB::insert(
+                    'insert into bibledata_'.$lang.'
+                    (`dataId`, `date`, `ribbonColor`, `weekDescription`, `psalter`, `saintOfTheDay`,`saintOfTheDayText`,`significanceOfTheDay`, 
+                    `firstReadingReference`, `firstReadingTitle`, `firstReadingText`, `psalmReference`, `psalmText`, `psalmResponse`, 
+                    `secondReadingReference`, `secondReadingTitle`, `secondReadingText`, `gospelReference`,`gospelTitle`, `gospelText`,
+                     `reflectionText`, `gospel_accumulation`,`prayer_faith`, `readText`, `reflectText`, `prayText`, `actText`,`dailyQuote`,
+                     `intercessoryPrayer`) values 
+                    (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                    on duplicate key update 
+                     `dataId`=values(`dataId`), `date`=values(`date`), `ribbonColor`=values(`ribbonColor`), `weekDescription`=values(`weekDescription`), `psalter`=values(`psalter`), `saintOfTheDay`=values(`saintOfTheDay`),`saintOfTheDayText`=values(`saintOfTheDayText`),`significanceOfTheDay`= values(`significanceOfTheDay`),`firstReadingReference`=values(`firstReadingReference`),`firstReadingTitle`=values(`firstReadingTitle`),`firstReadingText`=values(`firstReadingText`),`psalmReference`=values(`psalmReference`),
+                     `psalmText`=values(`psalmText`),`psalmResponse`=values(`psalmResponse`),`secondReadingReference`=values(`secondReadingReference`),`secondReadingTitle`=values(`secondReadingTitle`),`secondReadingText`=values(`secondReadingText`),`gospelReference`=values(`gospelReference`),`gospelTitle`=values(`gospelTitle`),  `gospelText`=values(`gospelText`),`reflectionText`=values(`reflectionText`),
+                     `gospel_accumulation`=values(`gospel_accumulation`),`prayer_faith`=values(`prayer_faith`),`readText`=values(`readText`),
+                     `reflectText`=values(`reflectText`),`prayText`=values(`prayText`),`actText`=values(`actText`),`dailyQuote`=values(`dailyQuote`),`intercessoryPrayer`=values(`intercessoryPrayer`)',
+                   $inser_array
+                    );
                  
                 $last_id =$value->dataId;
                     }
@@ -217,9 +215,8 @@ class FileController extends Controller {
     
                   
         }  catch (Exception $e) {
-            report($e);
-    
-            return false;
+            // report($e);
+            return redirect('admin/manage-dates')->with('message-fileupload','Failed to Update');    
         }
         
     }  

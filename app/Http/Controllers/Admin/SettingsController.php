@@ -384,7 +384,7 @@ class SettingsController extends Controller
             $Bibledata->weekDescription = $request->weekDescription;
             $Bibledata->psalter = $request->psalter;
             $Bibledata->saintOfTheDay = $request->saintOfTheDay;
-            $Bibledata->saintOfTheDay = $request->saintOfTheDay;
+            $Bibledata->saintOfTheDayText = $request->saintOfTheDayText;
             $Bibledata->significanceOfTheDay = $request->significanceOfTheDay;
             $Bibledata->firstReadingReference = $request->firstReadingReference;
             $Bibledata->firstReadingTitle = $request->firstReadingTitle;

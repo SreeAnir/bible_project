@@ -61,6 +61,13 @@
      <span class="material-input"></span>
     </div>
     <div class="form-group row is-empty">
+        <label for="" class="col-md-4 col-form-label text-md-right">Saint Of The Day Text<span class="required_star">*</span></label>
+        <div class="col-md-6">
+            <input value="{{@$bibleData->saintOfTheDayText}}"  id="saintOfTheDayText" type="text" class="form-control required" name="saintOfTheDayText" required="" autocomplete="" autofocus="">
+        </div>
+     <span class="material-input"></span>
+    </div>
+    <div class="form-group row is-empty">
         <label for="" class="col-md-4 col-form-label text-md-right">Significance Of The Day</label>
         <div class="col-md-6">
             <input value="{{@$bibleData->significanceOfTheDay}}" id="significanceOfTheDay" type="text" class="form-control" name="significanceOfTheDay" autocomplete="" autofocus="">

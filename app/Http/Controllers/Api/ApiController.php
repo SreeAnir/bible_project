@@ -75,6 +75,7 @@ class ApiController extends Controller
          $bible=Bibledata::select(DB::raw(" `dataId`, `date`, `ribbonColor`,
          COALESCE(`weekDescription`,'') as weekDescription ,CONCAT('PSALTER',' ', COALESCE(`psalter`,'') ) as psalter ,
          COALESCE(`saintOfTheDay`,'') as saintOfTheDay ,
+         COALESCE(`saintOfTheDayText`,'') as saintOfTheDayText ,
          COALESCE(`significanceOfTheDay`,'') as significanceOfTheDay ,
           COALESCE(`firstReadingReference`,'') as firstReadingReference ,
            COALESCE(`firstReadingTitle`,'') as firstReadingTitle,
