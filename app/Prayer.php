@@ -39,10 +39,9 @@ class Prayer extends Model
                $this->setTable('prayers_'.$lang);
             }
         }
-        $this->setTable('prayers_'.$lang);
         parent::__construct();
         // if($lang!='en'){
-        
+        $this->setTable('prayers_'.$lang);
         // }
     }
     public function prayertype() {

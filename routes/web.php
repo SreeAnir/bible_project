@@ -12,6 +12,7 @@
 */
 
 Route::get('/','Admin\HomeController@dashboard');
+Route::get('admin','Admin\HomeController@dashboard');
 
 
 Auth::routes();

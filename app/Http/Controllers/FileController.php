@@ -74,11 +74,12 @@ class FileController extends Controller {
             $last_id=0;
             if($data->count()){
                 foreach ($data as $key => $value) {
-                    if( $value->prayer_audio==""){
-                         $value->prayer_audio=null ;
-                    }
               if($value->idprayers!=""){
+                if( $value->prayer_audio==""){
+                    $value->prayer_audio=null ;
+               }  
 
+                 
               DB::insert(
             'insert into prayers_'.$lang.'(`idprayers`, `prayer`, `title`,`subtitle`,`text`,`prayer_audio`) values (?,?,?,?,?,?)
             on duplicate key update `idprayers`=values(`idprayers`), `title`=values(`title`), `prayer`=values(`prayer`), `text`=values(`text`), `prayer_audio`=values(`prayer_audio`), `subtitle`=values(`subtitle`)',

@@ -62,12 +62,9 @@ class ApiController extends Controller
         $token->unique_id = $request->unique_id;
         $token->fcm_token = $request->fcm_token;
         $token->device_type = $request->device_type;
-        $token->app_lang='en';
-        if($request->app_lang){
-            $token->app_lang = $request->app_lang;
-        }
+        
         if ($token->save()){
-            return response(['status'=>1,'message'=> 'Added Token',"lang"=> $request->app_lang, 
+            return response(['status'=>1,'message'=> 'Added Token',"lang"=> $lang, 
             "version_ios" => $this->app_version_ios , "version_android" => $this->app_version_android ,
             "ios_swah" => $this->ios_swah, "android_swah" => $this->android_swah ,
             "ios_en" => $this->app_version_ios, "android_en" => $this->app_version_android ,
@@ -157,7 +154,7 @@ COALESCE(`dailyQuote`,'') as dailyQuote " ));
             return response(['status'=>0,'message'=>'No Data' ,'data' => []], $this->failStatus);
         }
     }
-    
+
     public function getAllPrayer(){
         //        DB::raw('COALESCE( REPLACE(text, "\r", "") ,"") as text' ),
         $path=URL::asset('storage/upload/files/audio/');
@@ -227,61 +224,5 @@ COALESCE(`dailyQuote`,'') as dailyQuote " ));
     }
 
 
-    public function testpush() {
-        $url = 'https://fcm.googleapis.com/fcm/send';
-        $notification = array();
-        $registatoin_ids='fCcK0Ei6KhE:APA91bFbvoo2hLQEx6r_Ii_tQoMTMjXNa4ACVzod7eHbHVTdpI_HHlVtoiXeKUOGf9Ml5Cv2juOphZuZ5WCqKTaeOSmNi__cCNUB7N0mEvbV8SYED-or5TyYUl_-DRHVm33dWwcrmt02';
-        $notification["body"] ="TestPush Sri.";
-        $notification["title"] = "TestPush Sri.Inform me    ";
-        echo $registatoin_ids;
-        echo '<br>';
-        $notification["sound"] = "default";
-        $notification["type"] = 1;
-        $msg = array
-            (
-                'message'   => 'here is a message. message',
-                'title'     => 'This is a title. title'
-            );
-           
-         $fields = array
-            (
-                'to'            => $registatoin_ids,
-                'notification' => array(
-                    "title" => "Hello test push", 
-                    "body" => "hi",
-                    "icon" => "name_of_icon" ) ,
-                'priority'      =>'high'
-            );
-        
-        // if($device_type == "Android"){
-        //       $fields = array(
-        //           'to' => $registatoin_ids,
-        //           'data' => $notification
-        //       );
-        // } else {
-        //       $fields = array(
-        //           'to' => $registatoin_ids,
-        //           'notification' => $notification
-        //       );
-        // }
-        // Firebase API Key
-        $headers = array('Authorization:key=AAAAi0BnXBM:APA91bFCucmX7PCiOREsoRhbG0ZSleucBJJTIkaF4ip6RzAtYHvvwfFZP28_WZT4XR3HRkHYSKU6ALQfFctJ26QhNy85eGofHNv29q7NEEGWB3BsoqsVNQFXd4QPj-1HMOP26tlJSpAO','Content-Type:application/json');
-       // Open connection
-        $ch = curl_init();
-        // Set the url, number of POST vars, POST data
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // Disabling SSL Certificate support temporarly
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-        $result = curl_exec($ch);
-        print_r( $result );
-        if ($result === FALSE) {
-            die('Curl failed: ' . curl_error($ch));
-        }
-        curl_close($ch);
-    }
 
 }
